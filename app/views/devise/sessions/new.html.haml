@@ -1,0 +1,16 @@
+.row
+  #login
+    /%h2.center Login
+    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      .inputs
+        = f.input :email, :label => false, :placeholder => 'E-mail', :required => false, :autofocus => true
+        = f.input :password, :label => false, :placeholder => 'Password', :required => false
+      .rememberme
+        = f.input :remember_me, :label => "Remember me:", :as => :boolean if devise_mapping.rememberable?
+      .clear
+      %p
+      .actions.center
+        = f.button :submit, "Sign in", :class => 'btn btn-success btn-large'
+      .clear
+    .center
+      = render "devise/shared/links"

@@ -7,6 +7,10 @@ class Examiner < ActiveRecord::Base
 
   rails_admin do 
     navigation_label 'Operations records'   
+
+    edit do
+      exclude_fields :examinations
+    end
        
   end
 end

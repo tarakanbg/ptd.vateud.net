@@ -18,6 +18,27 @@ class Pilot < ActiveRecord::Base
 
   rails_admin do 
     navigation_label 'Operations records'   
+
+    list do
+      field :id
+      field :name do
+        pretty_value do
+          id = bindings[:object].id
+          name = bindings[:object].name
+          bindings[:view].link_to "#{name}", bindings[:view].rails_admin.show_path('pilot', id)
+        end
+      end
+      field :email
+      field :rating
+      field :vatsimid
+      field :division
+      field :vacc
+      field :atc_rating
+      field :exmaination
+      field :theory_passed
+      field :practical_passed
+      field :upgraded
+    end
        
   end
 end

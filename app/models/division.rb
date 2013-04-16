@@ -5,10 +5,16 @@ class Division < ActiveRecord::Base
 
   validates :name, :presence => true
 
+  default_scope order('priority ASC')
+
   rails_admin do 
     navigation_label 'Administrative records'   
     list do
       include_fields :name, :priority
-    end    
+    end   
+
+    edit do
+      exclude_fields :pilots
+    end 
   end
 end

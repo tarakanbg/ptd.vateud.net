@@ -1,0 +1,9 @@
+@import "bootstrap";
+
+.clear { clear:both; }
+.center {text-align:center;}
+
+#login {width:235px; height:230px;margin-left:auto;margin-right:auto;padding-top:40px;padding-left:40px; padding-right:40px; padding-bottom:10px;background:#E0E6EE;border:1px solid gray; margin-top:70px;}
+.rememberme {float:left;}
+.rememberme label {display:inline; color:gray; }
+.rememberme input {float:right; display:inline;margin-left:20px;}

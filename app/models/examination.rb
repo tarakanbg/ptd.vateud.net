@@ -8,6 +8,10 @@ class Examination < ActiveRecord::Base
 
   rails_admin do 
     navigation_label 'Operations records'   
+
+    edit do
+      exclude_fields :pilots
+    end
        
   end
 end

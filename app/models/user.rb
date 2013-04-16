@@ -10,7 +10,11 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   rails_admin do 
-    navigation_label 'Administrative records'   
+    navigation_label 'Administrative records'  
+
+    edit do
+      include_fields :email, :password, :password_confirmation
+    end
        
   end
 
@@ -19,4 +23,6 @@ class User < ActiveRecord::Base
     User.all.each {|u| emails << u.email}
     emails
   end
+
+
 end

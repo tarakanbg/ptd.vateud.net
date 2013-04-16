@@ -6,7 +6,11 @@ class Instructor < ActiveRecord::Base
   validates :name, :email, :vatsimid, :presence => true
 
   rails_admin do 
-    navigation_label 'Operations records'   
+    navigation_label 'Operations records' 
+
+    edit do
+      exclude_fields :pilots
+    end  
        
   end
 end
