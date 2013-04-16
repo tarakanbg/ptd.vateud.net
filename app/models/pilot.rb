@@ -3,7 +3,7 @@ class Pilot < ActiveRecord::Base
   
   belongs_to :atc_rating
   belongs_to :division
-  belongs_to :examination
+  belongs_to :examination, :inverse_of => :pilots
   belongs_to :instructor
   belongs_to :rating
 
@@ -20,21 +20,35 @@ class Pilot < ActiveRecord::Base
     navigation_label 'Operations records'   
 
     list do
-      field :id
+      field :id do
+        column_width 40
+      end
       field :name do
-        pretty_value do
+        column_width 170
+        pretty_value do          
           id = bindings[:object].id
           name = bindings[:object].name
           bindings[:view].link_to "#{name}", bindings[:view].rails_admin.show_path('pilot', id)
         end
       end
-      field :email
-      field :rating
-      field :vatsimid
-      field :division
-      field :vacc
+      field :email do
+        column_width 190
+      end
+      field :rating do
+        column_width 60
+      end
+      field :vatsimid do
+        label "Vatsim ID"
+        column_width 80
+      end
+      field :division do
+        column_width 80
+      end
+      field :vacc do
+        column_width 100
+      end
       field :atc_rating
-      field :exmaination
+      field :examination
       field :theory_passed
       field :practical_passed
       field :upgraded

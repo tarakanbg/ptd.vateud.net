@@ -1,0 +1,39 @@
+.row
+  %h2.center Pilot record for #{@pilot.name}
+  - if notice 
+    %p#notice= notice
+
+  #enroll
+    %p
+      %label.string.required.control-label Name:
+      %span.record-details #{@pilot.name}
+
+    %p
+      %label.string.required.control-label VATSIM ID:
+      %span.record-details #{@pilot.vatsimid}
+    
+    %p
+      %label.string.required.control-label Email:
+      %span.record-details #{@pilot.email}
+
+    %p
+      %label.string.required.control-label Desired Rating:
+      %span.record-details #{@pilot.rating.name}
+      
+    %p
+      %label.string.required.control-label Division:
+      %span.record-details #{@pilot.division.name}
+      
+    %p
+      %label.string.required.control-label VACC:
+      %span.record-details #{@pilot.vacc}
+      
+    %p
+      %label.string.required.control-label ATC rating:
+      %span.record-details #{@pilot.atc_rating.name}  
+
+    %p
+      %label.string.required.control-label Date enrolled:
+      %span.record-details #{@pilot.created_at}              
+
+    
