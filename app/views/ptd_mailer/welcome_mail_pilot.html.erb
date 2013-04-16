@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome to the VATEUD pilot training program, <%= @pilot.name %></h1>
+    <p>
+      You have successfully enrolled for <%= @pilot.rating.name %> training,
+      your VATSIM ID is: <%= @pilot.vatsimid %>.<br/>
+    </p>
+    <p>
+      Our pilot training department will get in touch with you soon, and you'll be assigned
+      to an instructor shortly.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

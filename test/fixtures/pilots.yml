@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  rating_id: 1
+  vatsimid: 1
+  email: MyString
+  vacc: MyString
+  instructor_id: 1
+  examination_id: 1
+  atc_rating_id: 1
+  division_id: 1
+  theory_passed: false
+  practical_passed: false
+  upgraded: false
+
+two:
+  name: MyString
+  rating_id: 1
+  vatsimid: 1
+  email: MyString
+  vacc: MyString
+  instructor_id: 1
+  examination_id: 1
+  atc_rating_id: 1
+  division_id: 1
+  theory_passed: false
+  practical_passed: false
+  upgraded: false
