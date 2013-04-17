@@ -65,6 +65,7 @@ class Pilot < ActiveRecord::Base
       field :division
       field :vacc
       field :atc_rating
+      field :instructor
       field :examination
       field :token_issued
       field :theory_passed
@@ -82,6 +83,7 @@ class Pilot < ActiveRecord::Base
       field :division
       field :vacc
       field :atc_rating
+      field :instructor
       field :examination
       field :token_issued
       field :theory_passed
