@@ -28,6 +28,14 @@ class Instructor < ActiveRecord::Base
         label "Vatsim ID"
       end
     end  
+
+    edit do
+      field :name
+      field :email
+      field :vatsimid do
+        label "Vatsim ID"
+      end
+    end
        
   end
 end

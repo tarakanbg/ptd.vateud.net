@@ -1,5 +1,5 @@
 class Pilot < ActiveRecord::Base
-  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name, :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid
+  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name, :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid, :token_issued
   
   belongs_to :atc_rating
   belongs_to :division
@@ -49,6 +49,41 @@ class Pilot < ActiveRecord::Base
       end
       field :atc_rating
       field :examination
+      field :token_issued
+      field :theory_passed
+      field :practical_passed
+      field :upgraded
+    end
+
+    edit do      
+      field :name 
+      field :email
+      field :rating
+      field :vatsimid do
+        label "Vatsim ID"       
+      end
+      field :division
+      field :vacc
+      field :atc_rating
+      field :examination
+      field :token_issued
+      field :theory_passed
+      field :practical_passed
+      field :upgraded
+    end
+
+    show do      
+      field :name 
+      field :email
+      field :rating
+      field :vatsimid do
+        label "Vatsim ID"       
+      end
+      field :division
+      field :vacc
+      field :atc_rating
+      field :examination
+      field :token_issued
       field :theory_passed
       field :practical_passed
       field :upgraded
