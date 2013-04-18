@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416235615) do
+ActiveRecord::Schema.define(:version => 20130418164910) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -68,6 +68,9 @@ ActiveRecord::Schema.define(:version => 20130416235615) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.boolean  "token_issued",     :default => false
+    t.decimal  "theory_score"
+    t.decimal  "practical_score"
+    t.text     "notes"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

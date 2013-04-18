@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear VATEUD PTD instructor,</h1>
+    <p>
+      A practical examination has been scheduled for one of your trainees by the VATEUD PTD.<br/><br/>
+      
+      Examination details:<br/><br/>
+
+      Date and Time: <%= @examination.date %><br/>
+      Examiner: <%= @examination.examiner.name %><br/>
+      Departure Airport: <%= @examination.departure_airport %><br/>
+      Arrival Airport:  <%= @examination.destination_airport %><br/>
+      Participating pilots: <%= @pilot_names.join(", ") %><br/>
+      
+    </p>
+    <p>
+      Make sure the training is finalized and the applicant is ready for his exam before the scheduled date!
+    </p>
+    <p>Good luck and have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

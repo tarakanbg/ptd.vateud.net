@@ -4,12 +4,27 @@ class Examination < ActiveRecord::Base
   has_many :pilots, :inverse_of => :examination
   belongs_to :examiner
 
-  # accepts_nested_attributes_for :pilots, :allow_destroy => true
-  # attr_accessible :pilots_attributes, :allow_destroy => true 
   attr_accessible :pilot_ids
 
   validates :date, :departure_airport, :destination_airport, :examiner_id, :presence => true
 
+  after_create :send_initial_mail
+  after_save :send_followup_mail
+
+  def send_initial_mail
+    PtdMailer.examination_mail_pilots(self).deliver
+    PtdMailer.examination_mail_instructors(self).deliver
+    PtdMailer.examination_mail_examiner(self).deliver
+  end
+
+  def send_followup_mail
+    if self.date_changed?
+      PtdMailer.examination_mail_pilots(self).deliver
+      PtdMailer.examination_mail_instructors(self).deliver
+      PtdMailer.examination_mail_examiner(self).deliver
+    end
+  end
+  
   rails_admin do 
     navigation_label 'Operations records'   
 

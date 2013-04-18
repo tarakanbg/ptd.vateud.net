@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear <%= @pilot.name %></h1>
+    <p>
+      You have been assigned an instructor for your <%= @pilot.rating.name %> pilot training by the VATEUD PTD.<br/><br/>
+      
+      Your instructor is: <%= @pilot.instructor.name %>, VATSIM ID <%= @pilot.instructor.vatsimid %>.<br/>
+      You can reach him by email: <%= @pilot.instructor.email %>
+    </p>
+    <p>
+      After completing your training and your theoretical examination you will be assigned
+      an examiner and an examination date for the online practical examination.
+    </p>
+    <p>Good luck and have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

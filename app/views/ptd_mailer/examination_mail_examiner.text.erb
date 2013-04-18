@@ -1,0 +1,22 @@
+*This is an automated email message, please do not reply!*
+    
+Dear <%= @examination.examiner.name %>,
+=======================================
+
+A practical examination has been scheduled for you by the VATEUD PTD.
+      
+Examination details:
+
+  Date and Time: <%= @examination.date %>
+  Examiner: <%= @examination.examiner.name %>
+  Departure Airport: <%= @examination.departure_airport %>
+  Arrival Airport:  <%= @examination.destination_airport %>
+  Participating pilots: <%= @pilot_names.join(", ") %>
+      
+
+If you are a VATEUD PTD admin, you can manage the pilots' records and mark their score
+at http://ptd.vateud.net/admin
+
+Have a great day!
+
+*VATEUD Pilot Training Department Team*

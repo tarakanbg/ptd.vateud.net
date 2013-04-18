@@ -1,5 +1,5 @@
 class Pilot < ActiveRecord::Base
-  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name, :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid, :token_issued
+  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name, :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid, :token_issued, :theory_score, :practical_score, :notes
   
   belongs_to :atc_rating
   belongs_to :division
@@ -10,10 +10,18 @@ class Pilot < ActiveRecord::Base
   validates :name, :email, :atc_rating_id, :division_id, :rating_id, :vatsimid, :presence => true
 
   after_create :send_welcome_mail
+  after_save :send_instructor_mail
 
   def send_welcome_mail
     PtdMailer.welcome_mail_pilot(self).deliver
     PtdMailer.welcome_mail_users(self).deliver
+  end
+
+  def send_instructor_mail
+    if self.instructor_id_changed? && self.instructor
+      PtdMailer.instructor_mail_pilot(self).deliver
+      PtdMailer.instructor_mail_instructor(self).deliver
+    end
   end
 
   rails_admin do 
@@ -51,7 +59,9 @@ class Pilot < ActiveRecord::Base
       field :examination
       field :token_issued
       field :theory_passed
+      field :theory_score
       field :practical_passed
+      field :practical_score
       field :upgraded
     end
 
@@ -69,8 +79,11 @@ class Pilot < ActiveRecord::Base
       field :examination
       field :token_issued
       field :theory_passed
+      field :theory_score
       field :practical_passed
+      field :practical_score
       field :upgraded
+      field :notes
     end
 
     show do      
@@ -87,8 +100,11 @@ class Pilot < ActiveRecord::Base
       field :examination
       field :token_issued
       field :theory_passed
+      field :theory_score
       field :practical_passed
+      field :practical_score
       field :upgraded
+      field :notes
     end
        
   end
