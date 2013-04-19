@@ -18,11 +18,11 @@ class Examination < ActiveRecord::Base
   end
 
   def send_followup_mail
-    if self.date_changed?
-      PtdMailer.examination_mail_pilots(self).deliver
-      PtdMailer.examination_mail_instructors(self).deliver
-      PtdMailer.examination_mail_examiner(self).deliver
-    end
+    # if self.date_changed?
+    #   PtdMailer.examination_mail_pilots(self).deliver
+    #   PtdMailer.examination_mail_instructors(self).deliver
+    #   PtdMailer.examination_mail_examiner(self).deliver
+    # end
   end
   
   rails_admin do 
