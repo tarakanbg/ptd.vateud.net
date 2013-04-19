@@ -12,9 +12,9 @@ class Examination < ActiveRecord::Base
   after_save :send_followup_mail
 
   def send_initial_mail
-    PtdMailer.examination_mail_pilots(self).deliver
-    PtdMailer.examination_mail_instructors(self).deliver
-    PtdMailer.examination_mail_examiner(self).deliver
+    # PtdMailer.examination_mail_pilots(self).deliver
+    # PtdMailer.examination_mail_instructors(self).deliver
+    # PtdMailer.examination_mail_examiner(self).deliver
   end
 
   def send_followup_mail
