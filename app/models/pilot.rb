@@ -2,8 +2,12 @@ class Pilot < ActiveRecord::Base
   attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name,
                   :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
-                  :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date
+                  :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
+                  :slug
   
+  extend FriendlyId
+  friendly_id :url, use: :slugged
+
   belongs_to :atc_rating
   belongs_to :division
   belongs_to :examination, :inverse_of => :pilots
@@ -15,6 +19,10 @@ class Pilot < ActiveRecord::Base
   after_create :send_welcome_mail
   after_save :saving_callbacks
   before_save :before_saving_callbacks
+
+  def url
+    Digest::SHA1.hexdigest self.name+self.created_at.to_s+self.vatsimid.to_s+"rgy345sjk"
+  end
 
   def send_welcome_mail
     PtdMailer.welcome_mail_pilot(self).deliver

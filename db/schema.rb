@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419152938) do
+ActiveRecord::Schema.define(:version => 20130419214548) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -76,7 +76,10 @@ ActiveRecord::Schema.define(:version => 20130419152938) do
     t.datetime "practical_passed_date"
     t.datetime "upgraded_date"
     t.datetime "instructor_assigned_date"
+    t.string   "slug"
   end
+
+  add_index "pilots", ["slug"], :name => "index_pilots_on_slug", :unique => true
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"

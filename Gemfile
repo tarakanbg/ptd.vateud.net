@@ -51,3 +51,5 @@ gem "pg", "~> 0.15.0"
 gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'newrelic_rpm'
+
+gem "friendly_id", "~> 4.0.9"

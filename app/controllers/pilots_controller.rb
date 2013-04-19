@@ -40,7 +40,7 @@ class PilotsController < ApplicationController
   # POST /pilots
   # POST /pilots.json
   def create
-    if verify_recaptcha
+    # if verify_recaptcha
       @pilot = Pilot.new(params[:pilot])
 
       respond_to do |format|
@@ -52,12 +52,12 @@ class PilotsController < ApplicationController
           format.json { render json: @pilot.errors, status: :unprocessable_entity }
         end
       end
-    else
-      @pilot = Pilot.new(params[:pilot])
-      flash[:recaptcha_error] = "Verify captcha!"
-      flash[:error] = "Pilot not enrolled!"
-      render :template => 'pilots/new'
-    end
+    # else
+    #   @pilot = Pilot.new(params[:pilot])
+    #   flash[:recaptcha_error] = "Verify captcha!"
+    #   flash[:error] = "Pilot not enrolled!"
+    #   render :template => 'pilots/new'
+    # end
   end
 
   # PUT /pilots/1
