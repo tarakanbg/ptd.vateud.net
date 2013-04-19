@@ -13,7 +13,7 @@ class Examination < ActiveRecord::Base
 
   def send_initial_mail
     # PtdMailer.examination_mail_pilots(self).deliver
-    # PtdMailer.examination_mail_instructors(self).deliver
+    PtdMailer.examination_mail_instructors(self).deliver
     # PtdMailer.examination_mail_examiner(self).deliver
   end
 
