@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear <%= @pilot.instructor.name %></h1>
+    <p>
+      We're informing you that your trainee pilot <%= @pilot.name %> has successfully passed the theoretical exam for his
+      <%= @pilot.rating.name %> training within VATEUD PTD with a score of <%= @pilot.theory_score || "[undefined]" %>.<br/>
+    </p>
+    <p>
+      You can continue training with him in preparation for his practical examination.
+    </p>
+    <p>Good luck and have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

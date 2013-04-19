@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418164910) do
+ActiveRecord::Schema.define(:version => 20130419152938) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -62,15 +62,20 @@ ActiveRecord::Schema.define(:version => 20130418164910) do
     t.integer  "examination_id"
     t.integer  "atc_rating_id"
     t.integer  "division_id"
-    t.boolean  "theory_passed",    :default => false
-    t.boolean  "practical_passed", :default => false
-    t.boolean  "upgraded",         :default => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.boolean  "token_issued",     :default => false
+    t.boolean  "theory_passed",            :default => false
+    t.boolean  "practical_passed",         :default => false
+    t.boolean  "upgraded",                 :default => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.boolean  "token_issued",             :default => false
     t.decimal  "theory_score"
     t.decimal  "practical_score"
     t.text     "notes"
+    t.datetime "token_issued_date"
+    t.datetime "theory_passed_date"
+    t.datetime "practical_passed_date"
+    t.datetime "upgraded_date"
+    t.datetime "instructor_assigned_date"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

@@ -1,5 +1,8 @@
 class Pilot < ActiveRecord::Base
-  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name, :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid, :token_issued, :theory_score, :practical_score, :notes
+  attr_accessible :atc_rating_id, :division_id, :email, :examination_id, :instructor_id, :name,
+                  :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
+                  :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
+                  :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date
   
   belongs_to :atc_rating
   belongs_to :division
@@ -10,18 +13,83 @@ class Pilot < ActiveRecord::Base
   validates :name, :email, :atc_rating_id, :division_id, :rating_id, :vatsimid, :presence => true
 
   after_create :send_welcome_mail
-  after_save :send_instructor_mail
+  after_save :saving_callbacks
+  before_save :before_saving_callbacks
 
   def send_welcome_mail
     PtdMailer.welcome_mail_pilot(self).deliver
     PtdMailer.welcome_mail_users(self).deliver
   end
 
-  def send_instructor_mail
+  def saving_callbacks
+    send_instructor_emails 
+    send_token_emails
+    send_theory_emails
+    send_practical_emails
+    send_upgraded_emails
+  end
+
+  def before_saving_callbacks
+    save_chronography
+  end
+
+  def send_instructor_emails
     if self.instructor_id_changed? && self.instructor
       PtdMailer.instructor_mail_pilot(self).deliver
       PtdMailer.instructor_mail_instructor(self).deliver
+    end    
+  end
+
+  def send_token_emails
+    if self.token_issued_changed? && self.token_issued?
+      PtdMailer.token_mail_pilot(self).deliver
+    end    
+  end
+
+  def send_theory_emails
+    if self.theory_passed_changed? && self.theory_passed?
+      PtdMailer.theory_mail_pilot(self).deliver
+      PtdMailer.theory_mail_instructor(self).deliver
     end
+  end
+
+  def send_practical_emails
+    if self.practical_passed_changed? && self.practical_passed?
+      PtdMailer.practical_mail_pilot(self).deliver
+      PtdMailer.practical_mail_instructor(self).deliver
+    end
+  end
+
+  def send_upgraded_emails
+    if self.upgraded_changed? && self.upgraded?
+      PtdMailer.upgraded_mail_pilot(self).deliver
+    end 
+  end
+
+  def save_chronography
+    if self.token_issued_changed? && self.token_issued?
+      self.token_issued_date = Time.now
+    elsif self.token_issued_changed?
+      self.token_issued_date = nil
+    end  
+    if self.theory_passed_changed? && self.theory_passed?
+      self.theory_passed_date = Time.now
+    elsif self.theory_passed_changed?
+      self.theory_passed_date = nil
+    end  
+    if self.practical_passed_changed? && self.practical_passed?
+      self.practical_passed_date = Time.now
+    elsif self.practical_passed_changed?
+      self.practical_passed_date = nil
+    end  
+    if self.upgraded_changed? && self.upgraded?
+      self.upgraded_date = Time.now
+    elsif self.upgraded_changed?
+      self.upgraded_date = nil
+    end 
+    if self.instructor_id_changed? && self.instructor
+      self.instructor_assigned_date = Time.now
+    end 
   end
 
   rails_admin do 
@@ -58,11 +126,15 @@ class Pilot < ActiveRecord::Base
       field :atc_rating
       field :examination
       field :token_issued
+      field :token_issued_date
       field :theory_passed
+      field :theory_passed_date
       field :theory_score
       field :practical_passed
+      field :practical_passed_date
       field :practical_score
       field :upgraded
+      field :upgraded_date
     end
 
     edit do      
@@ -76,13 +148,28 @@ class Pilot < ActiveRecord::Base
       field :vacc
       field :atc_rating
       field :instructor
-      field :examination
+      field :instructor_assigned_date do
+        read_only true
+      end
       field :token_issued
+      field :token_issued_date do
+        read_only true
+      end
       field :theory_passed
+      field :theory_passed_date do
+        read_only true
+      end
       field :theory_score
+      field :examination
       field :practical_passed
+      field :practical_passed_date do
+        read_only true
+      end
       field :practical_score
       field :upgraded
+      field :upgraded_date do
+        read_only true
+      end
       field :notes
     end
 
@@ -97,13 +184,18 @@ class Pilot < ActiveRecord::Base
       field :vacc
       field :atc_rating
       field :instructor
+      field :instructor_assigned_date
       field :examination
       field :token_issued
+      field :token_issued_date
       field :theory_passed
+      field :theory_passed_date
       field :theory_score
       field :practical_passed
+      field :practical_passed_date
       field :practical_score
       field :upgraded
+      field :upgraded_date
       field :notes
     end
        

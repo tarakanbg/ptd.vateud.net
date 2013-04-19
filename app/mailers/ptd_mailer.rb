@@ -47,9 +47,41 @@ class PtdMailer < ActionMailer::Base
     @pilot_names = []
     @examination.pilots.each {|pilot| @pilot_names << pilot.name }
     mail(:to => @examination.examiner.email, :subject => "VATEUD PTD Examination Scheduled")
-  end  
+  end 
+
+  def token_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Exam Token Issued")
+  end 
+
+  def theory_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Theoretical Exam Passed")
+  end
+
+  def theory_mail_instructor(pilot)
+    @pilot = pilot
+    if pilot.instructor
+      mail(:to => @pilot.instructor.email, :subject => "VATEUD PTD Theoretical Exam Passed by your trainee")
+    end
+  end
+
+  def practical_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Practical Exam Passed")
+  end
+
+  def practical_mail_instructor(pilot)
+    @pilot = pilot
+    if pilot.instructor
+      mail(:to => @pilot.instructor.email, :subject => "VATEUD PTD Practical Exam Passed by your trainee")
+    end
+  end
+
+  def upgraded_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Pilot Rating Upgrade")
+  end 
 end
 
 
-
-    
