@@ -34,7 +34,7 @@ class PtdMailer < ActionMailer::Base
   def examination_mail_instructors(examination)
     @examination = examination
     instructor_emails = []
-    @examination.pilots.each {|pilot| instructor_emails << pilot.instructor.email }
+    @examination.pilots.each {|pilot| instructor_emails << pilot.instructor.email if pilot.instructor }
     @pilot_names = []
     @examination.pilots.each {|pilot| @pilot_names << pilot.name }
     mail(:to => instructor_emails, :subject => "VATEUD PTD Examination Scheduled for your trainee")
