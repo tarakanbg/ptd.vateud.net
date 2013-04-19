@@ -75,6 +75,7 @@ GEM
     mime-types (1.22)
     multi_json (1.7.2)
     nested_form (0.3.2)
+    newrelic_rpm (3.6.0.78)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
     paper_trail (2.7.1)
@@ -167,6 +168,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
+  newrelic_rpm
   paper_trail (~> 2.7.1)
   pg (~> 0.15.0)
   quiet_assets
