@@ -16,7 +16,7 @@
               %th Enrolled at
             - @pilots.each do |pilot|
               %tr
-                %td= pilot.name
+                %td= link_to pilot.name, "http://www.vataware.com/pilot.cfm?cid=#{pilot.vatsimid}", :target => "_blank"
                 %td= pilot.vatsimid
                 %td= pilot.rating.name
                 %td= pilot.division.name
