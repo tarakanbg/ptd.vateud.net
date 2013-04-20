@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require bootstrap
+ //= require_tree ./frontend 
+ //=  require 'raphael'
+//=  require 'morris'
+//=  require 'graphs'

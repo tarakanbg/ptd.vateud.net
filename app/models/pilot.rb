@@ -8,6 +8,12 @@ class Pilot < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url, use: :slugged
 
+  default_scope order('id DESC')
+
+  scope :theoretical, where(:theory_passed => true)
+  scope :practical, where(:practical_passed => true)
+  scope :graduated, where(:upgraded => true)
+
   belongs_to :atc_rating
   belongs_to :division
   belongs_to :examination, :inverse_of => :pilots
@@ -19,6 +25,30 @@ class Pilot < ActiveRecord::Base
   after_create :send_welcome_mail
   after_save :saving_callbacks
   before_save :before_saving_callbacks
+
+  def self.chart_data(start = 1.year.ago)
+    pilots = pilots_by_day(start)
+    examinations = Examination.records_by_day(start)
+    # followup_calls = FollowupCall.records_by_day(start, agent, architect)
+    (start.to_date..Date.today).map do |date|
+      {
+        created_at: date,
+        pilots: pilots[date].to_i || 0,
+        examinations: examinations[date].to_i || 0
+        # followup_calls: followup_calls[date].to_i || 0
+      }
+    end
+  end
+
+  def self.pilots_by_day(start)
+    pilots = unscoped.where(created_at: start.beginning_of_day..Time.zone.now)    
+    pilots = pilots.group('date(created_at)')
+    pilots = pilots.order('date(created_at)')
+    pilots = pilots.select('date(created_at) as created_at, count(*) as count')
+    pilots.each_with_object({}) do |pilot, counts|
+      counts[pilot.created_at.to_date] = pilot.count
+    end
+  end
 
   def url
     Digest::SHA1.hexdigest self.name+self.created_at.to_s+self.vatsimid.to_s+"rgy345sjk"

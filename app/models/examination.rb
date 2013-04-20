@@ -17,6 +17,16 @@ class Examination < ActiveRecord::Base
   #   PtdMailer.examination_mail_examiner(self).deliver
   # end
 
+  def self.records_by_day(start)
+    records = unscoped.where(created_at: start.beginning_of_day..Time.zone.now)    
+    records = records.group('date(created_at)')
+    records = records.order('date(created_at)')
+    records = records.select('date(created_at) as created_at, count(*) as count')
+    records.each_with_object({}) do |record, counts|
+      counts[record.created_at.to_date] = record.count
+    end
+  end
+
   def send_mail
     if self.date_changed?
       PtdMailer.examination_mail_pilots(self).deliver

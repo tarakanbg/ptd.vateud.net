@@ -1,0 +1,53 @@
+#aboutus
+  .container
+    .section_header
+      .span4.lastspan
+        %h3 Managers & Admins
+      .span4.lastspan
+        %h3 PTD Examiners
+      .span4.last.lastspan
+        %h3 PTD Instructors
+
+    .row
+      .span4.intro   
+        #staff-listing
+          %table.staff
+            %tr
+              %th Name
+              %th Vatsim ID
+              / %th Email              
+            - @users.each do |user|
+              %tr
+                %td= user.name
+                %td= mail_to user.email, user.email, :encode => "javascript"
+                / %td= user.email
+      
+      .span4.intro   
+        #staff-listing
+          %table.staff
+            %tr
+              %th Name
+              %th Vatsim ID
+              / %th Email              
+            - @examiners.each do |examiner|
+              %tr
+                %td= examiner.name
+                %td= examiner.vatsimid
+                / %td= examiner.email
+                
+      .span4.intro   
+        #staff-listing
+          %table.staff
+            %tr
+              %th Name
+              %th Vatsim ID
+              / %th Email              
+            - @instructors.each do |instructor|
+              %tr
+                %td= instructor.name
+                %td= instructor.vatsimid
+                / %td= instructor.email
+                
+        
+
+ 

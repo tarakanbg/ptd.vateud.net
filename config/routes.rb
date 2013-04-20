@@ -3,7 +3,10 @@ PtdVateudNet::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  resources :pilots, :only => [:new, :create, :show]
+  resources :pilots, :only => [:new, :create, :show, :index]
+  resources :instructors, :only => [:index]
+  get "staff" => 'instructors#index'
+  get "statistics" => 'pilots#statistics'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

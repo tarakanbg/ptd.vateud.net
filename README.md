@@ -4,6 +4,20 @@
 
 ***... work in progress ...***
 
+
+## Authentication
+The backend access to the application, available for administrators PTD staff, instructors and examiners
+is gated by an authentication system. New backend user records can only be created by existing app admins,
+sign up is not possible, password reset tool is provided. Passwords are stored as a random-salted
+SHA1 hash. No sensitive data is stored in plain text.
+
+## Frontend
+
+### Pilot records
+Each pilot is limited to only check their own record and history, by using a unique, non-reversible URL.
+This URL is initially emailed to the pilot with the welcome email after enrolling, and subsequently 
+included in each notification email for the lifecycle of the training (see "Email Automation" section).
+
 ## Email automation
 
 Emails are automatically being sent by the app in the following cases to the following recipients:
@@ -25,7 +39,7 @@ Emails are automatically being sent by the app in the following cases to the fol
   division, vacc, atc rating, etc.
 
 ### Upon issuing an exam token
-* When a pilot's record is marked with the "Token issued" checkmark:
+* When a pilot's record is marked with the "Token issued" check-mark:
 * A notification email is sent *to the pilot*, advising them they can now sit their theoretical
   test and giving them instructions on how to access and log into the test system (currently ATSimTest)
 
@@ -55,7 +69,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the cycle of a single pilot training 13 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training 13 different emails are being sent by the
 application to different recipients__
 
 

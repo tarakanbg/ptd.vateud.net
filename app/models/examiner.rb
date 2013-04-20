@@ -1,6 +1,8 @@
 class Examiner < ActiveRecord::Base
   attr_accessible :email, :name, :vatsimid
 
+  default_scope order('id DESC')
+
   has_many :examinations
 
   validates :name, :email, :vatsimid, :presence => true

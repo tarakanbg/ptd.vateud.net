@@ -1,0 +1,28 @@
+#aboutus
+  .container
+    .section_header
+      %h3 VATEUD PTD Trainees
+    .row
+      .span12.intro   
+        #pilots-listing
+          %table.pilots
+            %tr
+              %th Name
+              %th Vatsim ID
+              %th Rating
+              %th Division
+              %th vACC
+              %th ATC rating
+              %th Enrolled at
+            - @pilots.each do |pilot|
+              %tr
+                %td= pilot.name
+                %td= pilot.vatsimid
+                %td= pilot.rating.name
+                %td= pilot.division.name
+                %td= pilot.vacc
+                %td= pilot.atc_rating.name
+                %td= pilot.created_at
+        
+        = will_paginate @pilots
+ 

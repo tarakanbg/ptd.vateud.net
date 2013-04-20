@@ -1,0 +1,25 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+#adminbar {user-select: none;
+  position: fixed;
+  z-index: 10010;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  border-top: 1px solid #006ccc;
+  border-bottom: 1px solid #006ccc;
+  background-color: #6A7176 ;
+  color: white;
+  text-shadow: 0.1em 0.1em 0.2em black;  
+  }
+  
+#adminbar #adminmenu {width: 900px; margin-left:auto; margin-right:auto; margin-top: 7px;}  
+#adminbar #adminmenu .editlink {float:left; margin-right: 20px;}  
+#adminbar #adminmenu .adminname {float:right;}  
+

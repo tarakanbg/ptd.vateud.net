@@ -1,6 +1,8 @@
 class Instructor < ActiveRecord::Base
   attr_accessible :email, :name, :vatsimid
 
+  default_scope order('id DESC')
+
   has_many :pilots
 
   validates :name, :email, :vatsimid, :presence => true

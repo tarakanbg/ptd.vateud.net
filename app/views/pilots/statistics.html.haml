@@ -1,0 +1,41 @@
+#aboutus
+  .container
+    .section_header
+      %h3 VATEUD PTD Statistics
+    .row
+      .span6.intro  
+        %h4 Trainee Statistics
+        %ul
+          %li
+            Total pilots enrolled:
+            %span.badge= @pilots_total  
+          %li
+            Passed theory test:
+            %span.badge= @theoretical
+          %li
+            Passed practical examination:
+            %span.badge= @practical
+          %li
+            Upgraded:
+            %span.badge= @graduated
+
+      .span6.intro  
+        %h4 Other Statistics
+        %ul
+          %li
+            Total examinations held:
+            %span.badge= @examinations_total  
+          %li
+            Total examiners:
+            %span.badge= @examiners
+          %li
+            Total instructors:
+            %span.badge= @instructors
+          
+    .row
+      .span12.intro   
+        %h4 Monthly Activity
+        = content_tag :div, "", id: "pilots_chart", data: {pilots: Pilot.chart_data(1.month.ago)} 
+        %h4 Yearly Activity
+        = content_tag :div, "", id: "pilots_yearly_chart", data: {pilots: Pilot.chart_data(1.year.ago)} 
+       

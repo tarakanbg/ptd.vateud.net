@@ -2,7 +2,7 @@ class PilotsController < ApplicationController
   # GET /pilots
   # GET /pilots.json
   def index
-    @pilots = Pilot.all
+    @pilots = Pilot.paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,5 +86,15 @@ class PilotsController < ApplicationController
       format.html { redirect_to pilots_url }
       format.json { head :no_content }
     end
+  end
+
+  def statistics
+    @pilots_total = Pilot.all.count
+    @theoretical = Pilot.theoretical.count
+    @practical = Pilot.practical.count
+    @graduated = Pilot.graduated.count
+    @examinations_total = Examination.all.count
+    @examiners = Examiner.all.count
+    @instructors = Instructor.all.count
   end
 end
