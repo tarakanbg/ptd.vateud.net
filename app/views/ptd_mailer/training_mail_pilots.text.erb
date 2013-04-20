@@ -1,0 +1,20 @@
+*This is an automated email message, please do not reply!*
+    
+Dear VATEUD PTD trainee,
+===========================
+      
+A training session has been scheduled for your pilot training by the VATEUD PTD.
+      
+Training details:
+
+  Date and Time: <%= @training.date %>
+  Instructor: <%= @training.instructor.name %>
+  Departure Airport: <%= @training.departure_airport %>
+  Arrival Airport:  <%= @training.destination_airport %>
+  Participating pilots: <%= @pilot_names.join(", ") %>
+  Other notes: <%= @training.notes %>
+      
+  
+Good luck and have a great day!
+
+*VATEUD Pilot Training Department Team*

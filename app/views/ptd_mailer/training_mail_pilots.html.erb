@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear VATEUD PTD trainee,</h1>
+    <p>
+      A training session has been scheduled for your pilot training by the VATEUD PTD.<br/><br/>
+      
+      Training details:<br/><br/>
+
+      Date and Time: <%= @training.date %><br/>
+      Instructor: <%= @training.instructor.name %><br/>
+      Departure Airport: <%= @training.departure_airport %><br/>
+      Arrival Airport:  <%= @training.destination_airport %><br/>
+      Participating pilots: <%= @pilot_names.join(", ") %><br/>
+      Other notes: <%= @training.notes %><br/>
+      
+    </p>    
+    <p>Good luck and have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

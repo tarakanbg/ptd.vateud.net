@@ -17,6 +17,7 @@ class Pilot < ActiveRecord::Base
   belongs_to :atc_rating
   belongs_to :division
   belongs_to :examination, :inverse_of => :pilots
+  has_and_belongs_to_many :trainings
   belongs_to :instructor
   belongs_to :rating
 
@@ -29,13 +30,13 @@ class Pilot < ActiveRecord::Base
   def self.chart_data(start = 1.year.ago)
     pilots = pilots_by_day(start)
     examinations = Examination.records_by_day(start)
-    # followup_calls = FollowupCall.records_by_day(start, agent, architect)
+    trainings = Training.records_by_day(start)
     (start.to_date..Date.today).map do |date|
       {
         created_at: date,
         pilots: pilots[date].to_i || 0,
-        examinations: examinations[date].to_i || 0
-        # followup_calls: followup_calls[date].to_i || 0
+        examinations: examinations[date].to_i || 0,
+        trainings: trainings[date].to_i || 0
       }
     end
   end
@@ -172,12 +173,13 @@ class Pilot < ActiveRecord::Base
         column_width 100
       end
       field :atc_rating
-      field :examination
+      field :trainings
       field :token_issued
       field :token_issued_date
       field :theory_passed
       field :theory_passed_date
       field :theory_score
+      field :examination
       field :practical_passed
       field :practical_passed_date
       field :practical_score
@@ -199,6 +201,7 @@ class Pilot < ActiveRecord::Base
       field :instructor_assigned_date do
         read_only true
       end
+      field :trainings
       field :token_issued
       field :token_issued_date do
         read_only true

@@ -65,11 +65,17 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the pilot's instructor* informing him that his trainee
   has passed the examination and about his mark  
 
+### Upon submitting a practical examination feedback
+* When a pilot's record is edited to add practical examination feedback by the pilot's examiner:
+* A notification email is sent *to the pilot* informing him of the received feedback and its contents
+* A notification email is sent *to the pilot's instructor* informing him that his trainee
+  has received examination feedback and its contents
+
 ### Upon upgrading
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training 13 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training 15 different emails are being sent by the
 application to different recipients__
 
 

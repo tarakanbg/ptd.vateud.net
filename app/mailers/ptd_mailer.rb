@@ -95,7 +95,21 @@ class PtdMailer < ActionMailer::Base
     end
   end
 
+  def training_mail_pilots(training)
+    @training = training
+    pilot_emails = []
+    @training.pilots.each {|pilot| pilot_emails << pilot.email }
+    @pilot_names = []
+    @training.pilots.each {|pilot| @pilot_names << pilot.name }
+    mail(:to => pilot_emails, :subject => "VATEUD PTD Training Session Scheduled")
+  end  
+
+  def training_mail_instructor(training)
+    @training = training    
+    @pilot_names = []
+    @training.pilots.each {|pilot| @pilot_names << pilot.name }
+    mail(:to => @training.instructor.email, :subject => "VATEUD PTD Training Session Scheduled")
+  end 
+
 end
 
-
-       

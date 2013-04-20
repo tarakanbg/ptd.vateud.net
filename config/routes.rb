@@ -5,6 +5,8 @@ PtdVateudNet::Application.routes.draw do
 
   resources :pilots, :only => [:new, :create, :show, :index]
   resources :instructors, :only => [:index]
+  resources :examinations, :only => [:index]
+  resources :trainings, :only => [:index]
   get "staff" => 'instructors#index'
   get "statistics" => 'pilots#statistics'
 

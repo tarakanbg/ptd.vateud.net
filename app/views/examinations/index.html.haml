@@ -1,0 +1,24 @@
+#aboutus
+  .container
+    .section_header
+      %h3 VATEUD PTD Examinations
+    .row
+      .span12.intro   
+        #pilots-listing
+          %table.pilots
+            %tr
+              %th Date
+              %th Examiner
+              %th Origin
+              %th Destination
+              %th Pilots
+            - @examinations.each do |examination|
+              %tr
+                %td= examination.date
+                %td= examination.examiner.name
+                %td= examination.departure_airport
+                %td= examination.destination_airport
+                %td= examination.list_pilot_names
+        
+        = will_paginate @examinations
+ 

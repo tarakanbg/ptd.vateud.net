@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2013-04-20 23:21:00
+  instructor_id: 1
+  departure_airport: MyString
+  destination_airport: MyString
+
+two:
+  date: 2013-04-20 23:21:00
+  instructor_id: 1
+  departure_airport: MyString
+  destination_airport: MyString

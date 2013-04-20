@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420165641) do
+ActiveRecord::Schema.define(:version => 20130420204650) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -82,6 +82,11 @@ ActiveRecord::Schema.define(:version => 20130420165641) do
 
   add_index "pilots", ["slug"], :name => "index_pilots_on_slug", :unique => true
 
+  create_table "pilots_trainings", :force => true do |t|
+    t.integer "pilot_id"
+    t.integer "training_id"
+  end
+
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
     t.string   "username"
@@ -101,6 +106,16 @@ ActiveRecord::Schema.define(:version => 20130420165641) do
     t.integer  "priority"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "trainings", :force => true do |t|
+    t.datetime "date"
+    t.integer  "instructor_id"
+    t.string   "departure_airport"
+    t.string   "destination_airport"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.text     "notes"
   end
 
   create_table "users", :force => true do |t|

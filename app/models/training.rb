@@ -1,21 +1,16 @@
-class Examination < ActiveRecord::Base
-  attr_accessible :date, :departure_airport, :destination_airport, :examiner_id
+class Training < ActiveRecord::Base
+  attr_accessible :date, :departure_airport, :destination_airport, :instructor_id, :notes
 
-  has_many :pilots, :inverse_of => :examination
-  belongs_to :examiner
+  has_and_belongs_to_many :pilots
+  belongs_to :instructor
 
   attr_accessible :pilot_ids
 
-  validates :date, :departure_airport, :destination_airport, :examiner_id, :presence => true
+  validates :date, :instructor_id, :presence => true
 
   # after_create :send_initial_mail
   after_save :send_mail
 
-  # def send_initial_mail
-  #   PtdMailer.examination_mail_pilots(self).deliver
-  #   PtdMailer.examination_mail_instructors(self).deliver
-  #   PtdMailer.examination_mail_examiner(self).deliver
-  # end
 
   def list_pilot_names
     pilot_names = []
@@ -35,9 +30,8 @@ class Examination < ActiveRecord::Base
 
   def send_mail
     if self.date_changed?
-      PtdMailer.examination_mail_pilots(self).deliver
-      PtdMailer.examination_mail_instructors(self).deliver
-      PtdMailer.examination_mail_examiner(self).deliver
+      PtdMailer.training_mail_pilots(self).deliver
+      PtdMailer.training_mail_instructor(self).deliver
     end
   end
   
@@ -55,11 +49,11 @@ class Examination < ActiveRecord::Base
         pretty_value do          
           id = bindings[:object].id
           date = bindings[:object].date
-          bindings[:view].link_to "#{date}", bindings[:view].rails_admin.show_path('examination', id)
+          bindings[:view].link_to "#{date}", bindings[:view].rails_admin.show_path('training', id)
         end
       end
 
-      field :examiner
+      field :instructor
       field :departure_airport
       field :destination_airport
     end  

@@ -4,6 +4,7 @@ class Instructor < ActiveRecord::Base
   default_scope order('id DESC')
 
   has_many :pilots
+  has_many :trainings
 
   validates :name, :email, :vatsimid, :presence => true
 

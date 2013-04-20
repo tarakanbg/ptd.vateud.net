@@ -96,5 +96,6 @@ class PilotsController < ApplicationController
     @examinations_total = Examination.all.count
     @examiners = Examiner.all.count
     @instructors = Instructor.all.count
+    @trainings = Training.all.count
   end
 end
