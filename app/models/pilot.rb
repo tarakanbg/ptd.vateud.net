@@ -3,7 +3,7 @@ class Pilot < ActiveRecord::Base
                   :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
-                  :slug
+                  :slug, :examination_feedback
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -65,6 +65,7 @@ class Pilot < ActiveRecord::Base
     send_theory_emails
     send_practical_emails
     send_upgraded_emails
+    send_examination_feedback
   end
 
   def before_saving_callbacks
@@ -102,6 +103,15 @@ class Pilot < ActiveRecord::Base
     if self.upgraded_changed? && self.upgraded?
       PtdMailer.upgraded_mail_pilot(self).deliver
     end 
+  end
+
+  def send_examination_feedback
+    if self.examination_feedback_changed?
+      unless self.examination_feedback.blank?
+        PtdMailer.feedback_mail_pilot(self).deliver
+        PtdMailer.feedback_mail_instructor(self).deliver
+      end
+    end
   end
 
   def save_chronography
@@ -204,6 +214,7 @@ class Pilot < ActiveRecord::Base
         read_only true
       end
       field :practical_score
+      field :examination_feedback
       field :upgraded
       field :upgraded_date do
         read_only true
@@ -232,6 +243,7 @@ class Pilot < ActiveRecord::Base
       field :practical_passed
       field :practical_passed_date
       field :practical_score
+      field :examination_feedback
       field :upgraded
       field :upgraded_date
       field :notes

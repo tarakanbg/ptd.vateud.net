@@ -82,6 +82,20 @@ class PtdMailer < ActionMailer::Base
     @pilot = pilot
     mail(:to => @pilot.email, :subject => "VATEUD PTD Pilot Rating Upgrade")
   end 
+
+  def feedback_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Examination Feedback received")
+  end 
+
+  def feedback_mail_instructor(pilot)
+    @pilot = pilot
+    if pilot.instructor
+      mail(:to => @pilot.instructor.email, :subject => "VATEUD PTD Examination feedback for your trainee")
+    end
+  end
+
 end
 
 
+       
