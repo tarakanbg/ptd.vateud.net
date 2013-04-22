@@ -25,34 +25,36 @@ For each __record type__ there are several action tabs:
 
 * __List / Index__: a paginated table overview of all available individual records for that type, including links/buttons
   to individual record actions. Below is an example of the pilot trainees listing:
-  ![Pilot listing](http://i.imgur.com/dqgefzl.png)
+  ![Pilot listing](images/1.png)
 * __Add new__ tab: a form for adding another individual record of the relevant type. Below is an example
   of the "Add new examination" form:
-  ![New examination](http://i.imgur.com/59h2xYU.png)
+  ![New examination](images/2.png)
 * __Export__  tab: allows exporting all or selected individual records of the relevant type to csv, xml or json formats.
-  (See the "Data liberation" section below). Below is an example of the "Export examiners" tab:
-  ![Export examiners](http://i.imgur.com/WypWJMh.png)
+  (See the "Data liberation" section below). Below is an example of the "Export examiners" tab:  
+  ![Export examiners](images/3.png)
 * __History__ tab: it displays a chronology of all "write" actions for the relevant record type (create, edit, delete),
   plus the details of the action (what was changed) and the backend user who changed it. Also see the "History Log" section below.
-  Below is a "History" snippet:
-  ![History Snippet](http://i.imgur.com/O3SsZCO.png)
+  Below is a "History" snippet:  
+  ![History Snippet](images/4.png)
 * __Filter / Search__ functionality: allows searching (filtering) the records by single or multiple criteria.
   The "Quick Filter" field will try to match the entered text against the data of *any* record field. Individual fields
   can be selected via the "Add filter" dropdown menu on the right. Below is an example of pilot records filtered by their
-  desired pilot rank and division:
-  ![Filters](http://i.imgur.com/dr1MN3R.png)
+  desired pilot rank and division:  
+  ![Filters](images/5.png)
 
 For each __individual record__ there are several individual actions, accessible via the minibuttons in the list/index view.
 Below is a shot of the minibuttons linked to different actions:
 
-![Minibuttons](http://i.imgur.com/IOd5L06.png)
+![Minibuttons](images/6.png)
 
-* __Show __ action: presents the details for the selected record. Below is an example of an examination "show" view:
-  ![Show](http://i.imgur.com/9SjgabF.png)
-* __Edit__ action: a form (with possible nested forms) to edit the record details. Below is part of a pilot "edit" view:
-  ![Edit](http://i.imgur.com/QJcR18w.png)
-* __Delete__ action: allows deleting of a selected record:
-  ![Delete](http://i.imgur.com/LkosYg0.png)
+* __Show__ action: presents the details for the selected record. Below is an example of an
+  examination "show" view:  
+  ![Show](images/7.png)
+* __Edit__ action: a form (with possible nested forms) to edit the record details.
+  Below is part of a pilot "edit" view:  
+  ![Edit](images/8.png)
+* __Delete__ action: allows deleting of a selected record:  
+  ![Delete](images/9.png)
 * __History__: the historical log of the record (see the "History Log" section below)
 
 ### Record groups
@@ -261,22 +263,22 @@ All frontend pages update dynamically without manual input.
 
 ### Enrollment form
 New pilots sign up for training by filling in and submitting the
-enroll form at [http://ptd.vateud.net/](http://ptd.vateud.net/).
-![Enroll](http://i.imgur.com/8znohkY.png)
+enroll form at [http://ptd.vateud.net/](http://ptd.vateud.net/).   
+![Enroll](images/10.png)
 
 ### Pilot records
 Each pilot is limited to only check their own record and history, by using a unique, non-reversible URL.
 This URL is initially emailed to the pilot with the welcome email after enrolling, and subsequently 
-included in each notification email for the lifecycle of the training (see "Email Automation" section).
+included in each notification email for the lifecycle of the training (see "Email Automation" section).   
 
 ### Frontend data tables
 Abridged data listings are published on the frontend in reverse chronological order for the
 following data types: pilot trainees, examinations, trainings, PTD staff. Below is a snippet of the pilot's
-table (the links point to each pilot's __vataware__ page):
-![Pilots](http://i.imgur.com/SxV7U4n.png)
+table (the links point to each pilot's __vataware__ page):   
+![Pilots](images/11.png)
 
 ### Statistics
 The "Statistics" page shows activity charts (monthly and yearly) depicting the dynamics of trainee records,
 examinations and trainings. Some numbers are also published: total pilots enrolled, pilots that have passed theory,
-pilot's that have passed practical exam, upgraded pilots, total numbers of examinations and tranings, etc
-![Stats](http://i.imgur.com/oDK8IBX.png)
+pilot's that have passed practical exam, upgraded pilots, total numbers of examinations and tranings, etc    
+![Stats](images/12.png)

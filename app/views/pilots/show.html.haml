@@ -27,9 +27,10 @@
           %label.string.required.control-label Division:
           %span.record-details #{@pilot.division.name}
           
-        %p
-          %label.string.required.control-label VACC:
-          %span.record-details #{@pilot.vacc}
+        - unless @pilot.vacc.blank?
+          %p
+            %label.string.required.control-label VACC:
+            %span.record-details #{@pilot.vacc}
           
         %p
           %label.string.required.control-label ATC rating:
@@ -37,7 +38,65 @@
 
         %p
           %label.string.required.control-label Date enrolled:
-          %span.record-details #{@pilot.created_at}              
+          %span.record-details #{@pilot.created_at}   
+
+        - if @pilot.instructor
+          %p
+            %label.string.required.control-label Instructor Assigned:
+            %span.record-details #{@pilot.instructor_assigned_date} 
+          %p
+            %label.string.required.control-label Instructor:
+            %span.record-details #{@pilot.instructor.name}, ID #{@pilot.instructor.vatsimid}
+
+        - if @pilot.trainings
+          - for training in @pilot.trainings
+            %p
+              %label.string.required.control-label Training:
+              %span.record-details #{training.date}, #{training.departure_airport} - #{training.destination_airport}, #{training.notes}
+            
+
+        - if @pilot.token_issued?
+          %p
+            %label.string.required.control-label Token issued:
+            %span.record-details #{@pilot.token_issued_date}             
+
+        - if @pilot.theory_passed?
+          %p
+            %label.string.required.control-label Theory passed:
+            %span.record-details #{@pilot.theory_passed_date} 
+
+        - unless @pilot.theory_score.blank?
+          %p
+            %label.string.required.control-label Theory Score:
+            %span.record-details #{@pilot.theory_score}  
+
+        - if @pilot.examination
+          %p
+            %label.string.required.control-label Practical exam:
+            %span.record-details #{@pilot.examination.date}, #{@pilot.examination.departure_airport} - #{@pilot.examination.destination_airport}
+          %p
+            %label.string.required.control-label Examiner:
+            %span.record-details #{@pilot.examination.examiner.name}, ID #{@pilot.examination.examiner.vatsimid}
+
+        - if @pilot.practical_passed?
+          %p
+            %label.string.required.control-label Practical passed:
+            %span.record-details #{@pilot.practical_passed_date}  
+
+        - unless @pilot.practical_score.blank?
+          %p
+            %label.string.required.control-label Practical Score:
+            %span.record-details #{@pilot.practical_score} 
+
+        - unless @pilot.examination_feedback.blank?
+          %p
+            %label.string.required.control-label Examination Feedback:
+            %span.record-details #{@pilot.examination_feedback}  
+
+        - if @pilot.upgraded?
+          %p
+            %label.string.required.control-label Upgraded:
+            %span.record-details #{@pilot.upgraded_date}                  
 
     .row
       %p.center= link_to "Read the PTD documentation", "http://vateud.net/training-department/pilot-td-aim"    
