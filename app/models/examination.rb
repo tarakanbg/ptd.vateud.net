@@ -8,6 +8,11 @@ class Examination < ActiveRecord::Base
 
   validates :date, :departure_airport, :destination_airport, :examiner_id, :presence => true
 
+  scope :upcoming, lambda {
+    where("date > ?", Time.now)
+  }
+
+
   # after_create :send_initial_mail
   after_save :send_mail
 
@@ -45,7 +50,23 @@ class Examination < ActiveRecord::Base
     navigation_label 'Operations records'   
 
     edit do
-      
+      field :date
+      field :examiner
+      field :departure_airport
+      field :destination_airport
+      field :pilots do
+        # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          examination = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            scope = scope.where(examination_id: nil)
+            scope = scope.limit(30)
+          }
+        end
+      end      
     end
 
     list do

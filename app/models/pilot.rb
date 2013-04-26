@@ -3,7 +3,7 @@ class Pilot < ActiveRecord::Base
                   :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
-                  :slug, :examination_feedback
+                  :slug, :examination_feedback, :token_reissued, :token_reissued_date
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -13,6 +13,8 @@ class Pilot < ActiveRecord::Base
   scope :theoretical, where(:theory_passed => true)
   scope :practical, where(:practical_passed => true)
   scope :graduated, where(:upgraded => true)
+  scope :active, where(:upgraded => false)
+  scope :unexamined, where(:examination_id => nil)
 
   belongs_to :atc_rating
   belongs_to :division
@@ -83,7 +85,10 @@ class Pilot < ActiveRecord::Base
   def send_token_emails
     if self.token_issued_changed? && self.token_issued?
       PtdMailer.token_mail_pilot(self).deliver
-    end    
+    end  
+    if self.token_reissued_changed? && self.token_reissued?
+      PtdMailer.token_mail_pilot(self).deliver
+    end   
   end
 
   def send_theory_emails
@@ -121,6 +126,11 @@ class Pilot < ActiveRecord::Base
     elsif self.token_issued_changed?
       self.token_issued_date = nil
     end  
+    if self.token_reissued_changed? && self.token_reissued?
+      self.token_reissued_date = Time.now
+    elsif self.token_reissued_changed?
+      self.token_reissued_date = nil
+    end 
     if self.theory_passed_changed? && self.theory_passed?
       self.theory_passed_date = Time.now
     elsif self.theory_passed_changed?
@@ -176,6 +186,7 @@ class Pilot < ActiveRecord::Base
       field :trainings
       field :token_issued
       field :token_issued_date
+      field :token_reissued
       field :theory_passed
       field :theory_passed_date
       field :theory_score
@@ -206,12 +217,33 @@ class Pilot < ActiveRecord::Base
       field :token_issued_date do
         read_only true
       end
+      field :token_reissued
+      field :token_reissued_date do
+        read_only true
+      end
       field :theory_passed
       field :theory_passed_date do
         read_only true
       end
       field :theory_score
-      field :examination
+      field :examination do
+        # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          pilot = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            if pilot.examination_id.nil?
+              scope = scope.where("date > ?", Time.now)
+              scope = scope.limit(30)
+            else
+              scope = scope.where("date > ? OR id = ?", Time.now, pilot.examination_id)
+              scope = scope.limit(30)
+            end
+          }
+        end
+      end    
       field :practical_passed
       field :practical_passed_date do
         read_only true
@@ -240,6 +272,8 @@ class Pilot < ActiveRecord::Base
       field :examination
       field :token_issued
       field :token_issued_date
+      field :token_reissued
+      field :token_reissued_date
       field :theory_passed
       field :theory_passed_date
       field :theory_score

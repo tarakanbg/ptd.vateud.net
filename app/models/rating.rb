@@ -18,6 +18,9 @@ class Rating < ActiveRecord::Base
     end
 
     list do
+      sort_by :priority
+      sort_reverse false
+      
       field :id
       field :name do
         column_width 180

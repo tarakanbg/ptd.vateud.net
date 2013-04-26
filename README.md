@@ -47,7 +47,7 @@ Below is a shot of the minibuttons linked to different actions:
 
 ![Minibuttons](http://i.imgur.com/IOd5L06.png)
 
-* __Show __ action: presents the details for the selected record. Below is an example of an examination "show" view:
+* __Show__ action: presents the details for the selected record. Below is an example of an examination "show" view:
   ![Show](http://i.imgur.com/9SjgabF.png)
 * __Edit__ action: a form (with possible nested forms) to edit the record details. Below is part of a pilot "edit" view:
   ![Edit](http://i.imgur.com/QJcR18w.png)
@@ -111,6 +111,8 @@ _The following data is stored and can be manipulated for each record:_
 * Instructor assigned date/time
 * Token issued
 * Token issued date/time
+* Token reissued
+* Token reissued date/time
 * Theory passed
 * Theory passed date/time
 * Theory score
@@ -143,6 +145,8 @@ _The following data is stored and can be manipulated for each record:_
 * Examiner
 * Participating pilot(s)
 
+Not that when creating or editing an examination only the trainees who haven't been examined yet will be
+available for inclusion.
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
 #### Trainings
@@ -156,6 +160,8 @@ _The following data is stored and can be manipulated for each record:_
 * Instructor
 * Participating pilot(s)
 
+Not that when creating or editing a training only the trainees who haven't been upgraded yet will be
+available for inclusion.
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
 ## Email automation
@@ -185,8 +191,8 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to all pilots* involved in the training with all the
   aforementioned details
 
-### Upon issuing an exam token
-* When a pilot's record is marked with the "Token issued" check-mark:
+### Upon issuing or re-issuing an exam token
+* When a pilot's record is marked with the "Token issued" or "Token re-issued" check-mark:
 * A notification email is sent *to the pilot*, advising them they can now sit their theoretical
   test and giving them instructions on how to access and log into the test system (currently ATSimTest)
 
@@ -238,6 +244,7 @@ automatically without manual input and are available for reference and housekeep
 * Pilot enrollment
 * Instructor assigned
 * Exam token issued
+* Exam token re-issued
 * Theoretical exam passed
 * Practical exam passed
 * Upgraded
@@ -268,6 +275,8 @@ enroll form at [http://ptd.vateud.net/](http://ptd.vateud.net/).
 Each pilot is limited to only check their own record and history, by using a unique, non-reversible URL.
 This URL is initially emailed to the pilot with the welcome email after enrolling, and subsequently 
 included in each notification email for the lifecycle of the training (see "Email Automation" section).
+An example of a public pilot record:
+![Record](http://i.imgur.com/9A40OGb.png)
 
 ### Frontend data tables
 Abridged data listings are published on the frontend in reverse chronological order for the

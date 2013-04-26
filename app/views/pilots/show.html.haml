@@ -58,7 +58,12 @@
         - if @pilot.token_issued?
           %p
             %label.string.required.control-label Token issued:
-            %span.record-details #{@pilot.token_issued_date}             
+            %span.record-details #{@pilot.token_issued_date}  
+
+        - if @pilot.token_reissued?
+          %p
+            %label.string.required.control-label Token re-issued:
+            %span.record-details #{@pilot.token_reissued_date}                  
 
         - if @pilot.theory_passed?
           %p
