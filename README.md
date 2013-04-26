@@ -130,6 +130,8 @@ the "Chronography automation" section below.
 
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
+Note that upon editing a pilot record to assign or re-assign him to an examination, only the upcoming (future) examinations will be available in the list, the past ones are not on the list.
+
 _Data available by association, and listed on each pilot's "show" page:_
 
 * Trainings
