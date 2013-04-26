@@ -55,3 +55,4 @@ gem 'newrelic_rpm'
 gem "friendly_id", "~> 4.0.9"
 gem "will_paginate", "~> 3.0.4"
 gem "bootstrap-will_paginate", "~> 0.0.9"
+gem "cancan", "~> 1.6.9"

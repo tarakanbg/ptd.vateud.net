@@ -6,16 +6,41 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :roles
   # attr_accessible :title, :body
 
   default_scope order('id DESC')
+
+  ROLES = %w[admin examiner instructor]
+
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask || 0) & 2**ROLES.index(r)).zero?
+    end
+  end
+
+  def is?(role)
+    roles.include?(role.to_s)
+  end
+
 
   rails_admin do 
     navigation_label 'Administrative records'  
 
     edit do
-      include_fields :name, :email, :password, :password_confirmation
+      field :name
+      field :email
+      field :password
+      field :password_confirmation
+      field :roles do
+        def render
+          bindings[:view].render :partial => "roles_partial", :locals => {:user => bindings[:object], :field => self, :form => bindings[:form]}
+        end
+      end
     end
 
     list do
