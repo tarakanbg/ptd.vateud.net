@@ -15,6 +15,20 @@ is gated by an authentication system. New backend user records can only be creat
 sign up is not possible, password reset tool is provided. Passwords are stored as a random-salted
 SHA1 hash. No sensitive data is stored in plain text.
 
+### User roles
+Users can have __one or many__ backend roles. The role determines the set of permissions a user has.
+The currently existing roles are:
+
+* __Admin__: has full management access to the entire backend and all data types and records
+* __Examiner__: has read only access to the all data types. Has full management access to the "Examination" records. Can update existing pilot records for non-upgraded pilots.
+* __Instructor__: has read only access to the all data types. Has full management access to the "Trainings" records. Can update existing pilot records for non-upgraded pilots.
+
+A user __without any defined role__ has read-only access to the entire backend.
+
+Note: It's perfectly possible to combine several roles to one user, so for example a single user
+can be both an instructor and an examiner, which would grant him the combined privileges
+of both these roles.
+
 ### Dashboard
 The dashboard is the starting place for admins and managers and lists a summary of all currently existing record types. The navigation menu on the left allows switching between the available record types.
 
@@ -147,7 +161,7 @@ _The following data is stored and can be manipulated for each record:_
 * Examiner
 * Participating pilot(s)
 
-Not that when creating or editing an examination only the trainees who haven't been examined yet will be
+Note that when creating or editing an examination only the trainees who haven't been examined yet will be
 available for inclusion.
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
@@ -162,7 +176,7 @@ _The following data is stored and can be manipulated for each record:_
 * Instructor
 * Participating pilot(s)
 
-Not that when creating or editing a training only the trainees who haven't been upgraded yet will be
+Note that when creating or editing a training only the trainees who haven't been upgraded yet will be
 available for inclusion.
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 

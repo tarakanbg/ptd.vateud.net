@@ -24,6 +24,9 @@ class Pilot < ActiveRecord::Base
   belongs_to :rating
 
   validates :name, :email, :atc_rating_id, :division_id, :rating_id, :vatsimid, :presence => true
+  validates :name, :length => { :minimum => 4 }
+  validates :vatsimid, :length => { :minimum => 6 }
+  validates :vatsimid, :numericality => true
 
   after_create :send_welcome_mail
   after_save :saving_callbacks

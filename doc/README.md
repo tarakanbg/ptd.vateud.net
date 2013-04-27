@@ -1,4 +1,5 @@
-# A technical description of the VATEUD PTD application
+# A technical description 
+## of the VATEUD PTD application
 
 *by __Svilen Vassilev__, VATEUD7, Web Services Director*
 
@@ -14,6 +15,20 @@ The backend access to the application, available for administrators PTD staff, i
 is gated by an authentication system. New backend user records can only be created by existing app admins,
 sign up is not possible, password reset tool is provided. Passwords are stored as a random-salted
 SHA1 hash. No sensitive data is stored in plain text.
+
+### User roles
+Users can have __one or many__ backend roles. The role determines the set of permissions a user has.
+The currently existing roles are:
+
+* __Admin__: has full management access to the entire backend and all data types and records
+* __Examiner__: has read only access to the all data types. Has full management access to the "Examination" records. Can update existing pilot records for non-upgraded pilots.
+* __Instructor__: has read only access to the all data types. Has full management access to the "Trainings" records. Can update existing pilot records for non-upgraded pilots.
+
+A user __without any defined role__ has read-only access to the entire backend.
+
+Note: It's perfectly possible to combine several roles to one user, so for example a single user
+can be both an instructor and an examiner, which would grant him the combined privileges
+of both these roles.
 
 ### Dashboard
 The dashboard is the starting place for admins and managers and lists a summary of all currently existing record types. The navigation menu on the left allows switching between the available record types.
@@ -113,6 +128,8 @@ _The following data is stored and can be manipulated for each record:_
 * Instructor assigned date/time
 * Token issued
 * Token issued date/time
+* Token reissued
+* Token reissued date/time
 * Theory passed
 * Theory passed date/time
 * Theory score
@@ -130,6 +147,8 @@ the "Chronography automation" section below.
 
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
+Note that upon editing a pilot record to assign or re-assign him to an examination, only the upcoming (future) examinations will be available in the list, the past ones are not on the list.
+
 _Data available by association, and listed on each pilot's "show" page:_
 
 * Trainings
@@ -145,6 +164,9 @@ _The following data is stored and can be manipulated for each record:_
 * Examiner
 * Participating pilot(s)
 
+Note that when creating or editing an examination only the trainees who haven't been examined yet will be
+available for inclusion.
+
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
 #### Trainings
@@ -157,6 +179,9 @@ _The following data is stored and can be manipulated for each record:_
 * Destination airport
 * Instructor
 * Participating pilot(s)
+
+Note that when creating or editing a training only the trainees who haven't been upgraded yet will be
+available for inclusion.
 
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
 
@@ -187,8 +212,8 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to all pilots* involved in the training with all the
   aforementioned details
 
-### Upon issuing an exam token
-* When a pilot's record is marked with the "Token issued" check-mark:
+### Upon issuing or re-issuing an exam token
+* When a pilot's record is marked with the "Token issued" or "Token re-issued" check-mark:
 * A notification email is sent *to the pilot*, advising them they can now sit their theoretical
   test and giving them instructions on how to access and log into the test system (currently ATSimTest)
 
@@ -240,6 +265,7 @@ automatically without manual input and are available for reference and housekeep
 * Pilot enrollment
 * Instructor assigned
 * Exam token issued
+* Exam token re-issued
 * Theoretical exam passed
 * Practical exam passed
 * Upgraded
