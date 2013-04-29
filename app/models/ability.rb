@@ -1,9 +1,9 @@
 class Ability
   include CanCan::Ability
   def initialize(user)
-    can :read, :all                   # allow everyone to read everything
+    can :read, :all
     if user #&& user.admin?
-      can :access, :rails_admin       # only allow admin users to access Rails Admin
+      can :access, :rails_admin      
       can :dashboard  
       if user.is? :admin
         can :manage, :all

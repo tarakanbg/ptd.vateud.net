@@ -105,6 +105,7 @@ class Pilot < ActiveRecord::Base
     if self.practical_passed_changed? && self.practical_passed?
       PtdMailer.practical_mail_pilot(self).deliver
       PtdMailer.practical_mail_instructor(self).deliver
+      PtdMailer.practical_mail_admin(self).deliver
     end
   end
 

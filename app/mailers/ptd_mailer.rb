@@ -78,6 +78,13 @@ class PtdMailer < ActionMailer::Base
     end
   end
 
+  def practical_mail_admin(pilot)
+    @pilot = pilot
+    admin = User.find_by_email("burak.bugday@vateud.net")
+    # admin = User.find_by_email("svilen@rubystudio.net")
+    mail(:to => admin.email, :subject => "VATEUD PTD Pilot Waiting for Upgrade") if admin
+  end
+
   def upgraded_mail_pilot(pilot)
     @pilot = pilot
     mail(:to => @pilot.email, :subject => "VATEUD PTD Pilot Rating Upgrade")

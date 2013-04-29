@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear PTD admin, </h1>
+    <p>
+      A PTD trainee has just completed their practical exam and are
+      <strong> ready for rating upgrade</strong>.<br/><br/>
+
+      Pilot name: <%= @pilot.name %><br/>
+      Rating achieved: <%= @pilot.rating.name %><br/>
+      Vatsim ID: <%= @pilot.vatsimid %><br/>
+
+   </p>
+
+    <p>Have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>
