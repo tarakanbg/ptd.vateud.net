@@ -174,7 +174,8 @@ class Pilot < ActiveRecord::Base
         column_width 190
       end
       field :rating do
-        column_width 60
+        column_width 60        
+        label "Desired Rating" 
       end
       field :vatsimid do
         label "Vatsim ID"
@@ -205,7 +206,9 @@ class Pilot < ActiveRecord::Base
     edit do      
       field :name 
       field :email
-      field :rating
+      field :rating do
+        label "Desired Rating"       
+      end
       field :vatsimid do
         label "Vatsim ID"       
       end
@@ -264,7 +267,9 @@ class Pilot < ActiveRecord::Base
     show do      
       field :name 
       field :email
-      field :rating
+      field :rating do
+        label "Desired Rating"       
+      end
       field :vatsimid do
         label "Vatsim ID"       
       end
