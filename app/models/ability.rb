@@ -10,9 +10,11 @@ class Ability
       elsif user.is? :examiner
         can :manage, [Examination] 
         can :update, Pilot, :upgraded => false
+        can :update, User, :id => user.id
       elsif user.is? :instructor
         can :manage, [Training]
         can :update, Pilot, :upgraded => false
+        can :update, User, :id => user.id
       end
       
       # if user.role? :superadmin

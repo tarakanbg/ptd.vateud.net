@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :roles
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :roles, :has_cert_access
   # attr_accessible :title, :body
 
   default_scope order('id DESC')
@@ -25,6 +25,12 @@ class User < ActiveRecord::Base
 
   def is?(role)
     roles.include?(role.to_s)
+  end
+
+  def self.certified
+    users = self.where(:has_cert_access => true)
+    emails = []
+    # users.each 
   end
 
 
