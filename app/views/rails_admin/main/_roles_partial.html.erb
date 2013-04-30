@@ -4,6 +4,4 @@
     <%= label_tag "user_roles_#{role}", role.humanize %><br />
   <% end %>
   <%= hidden_field_tag "user[roles][]", "" %>
-<% else %>  
-  <em>Roles not accessible</em>
 <% end %>
