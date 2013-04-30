@@ -1,7 +1,7 @@
-<% if user.is? :admin %>
+<% if current_user.is? :admin %>
   <% for role in User::ROLES %>
-    <%= check_box_tag "user[roles][#{role}]", role, user.roles.include?(role), {:name => "user[roles][]"}%>
-    <%= label_tag "user_roles_#{role}", role.humanize %><br />
+    <%= check_box_tag "subject[roles][#{role}]", role, subject.roles.include?(role), {:name => "subject[roles][]"}%>
+    <%= label_tag "subject_roles_#{role}", role.humanize %><br />
   <% end %>
-  <%= hidden_field_tag "user[roles][]", "" %>
+  <%= hidden_field_tag "subject[roles][]", "" %>
 <% end %>
