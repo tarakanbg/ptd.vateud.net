@@ -1,5 +1,9 @@
-<% for role in User::ROLES %>
-  <%= check_box_tag "user[roles][#{role}]", role, user.roles.include?(role), {:name => "user[roles][]"}%>
-  <%= label_tag "user_roles_#{role}", role.humanize %><br />
+<% if user.is? :admin %>
+  <% for role in User::ROLES %>
+    <%= check_box_tag "user[roles][#{role}]", role, user.roles.include?(role), {:name => "user[roles][]"}%>
+    <%= label_tag "user_roles_#{role}", role.humanize %><br />
+  <% end %>
+  <%= hidden_field_tag "user[roles][]", "" %>
+<% else %>  
+  <em>Roles not accessible</em>
 <% end %>
-<%= hidden_field_tag "user[roles][]", "" %>

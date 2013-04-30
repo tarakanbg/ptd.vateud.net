@@ -41,9 +41,9 @@ class User < ActiveRecord::Base
       field :name
       field :email
       field :password
-      field :password_confirmation
+      field :password_confirmation      
       field :roles do
-        def render
+        def render          
           bindings[:view].render :partial => "roles_partial", :locals => {:user => bindings[:object], :field => self, :form => bindings[:form]}
         end
       end
