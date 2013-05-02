@@ -4,7 +4,7 @@ class InstructorsController < ApplicationController
   def index
     @instructors = Instructor.all
     @examiners = Examiner.all
-    @users = User.all
+    @users = User.admins
 
     respond_to do |format|
       format.html # index.html.erb

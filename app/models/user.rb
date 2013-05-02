@@ -27,10 +27,22 @@ class User < ActiveRecord::Base
     roles.include?(role.to_s)
   end
 
-  def self.certified
-    users = self.where(:has_cert_access => true)
+  def self.certified_emails
     emails = []
-    # users.each 
+    self.where(:has_cert_access => true).each {|user| emails << user.email}
+    emails
+  end
+
+  def self.admins
+    admins = []   
+    User.all.each {|user| admins << user if user.is? :admin} 
+    admins
+  end
+
+  def self.examiners
+    examiners = []   
+    User.all.each {|user| examiners << user if user.is? :examiner} 
+    examiners
   end
 
 
@@ -44,9 +56,10 @@ class User < ActiveRecord::Base
       field :password_confirmation      
       field :roles do
         def render          
-          bindings[:view].render :partial => "roles_partial", :locals => {:subject => bindings[:object], :field => self, :form => bindings[:form]}
+          bindings[:view].render :partial => "roles_partial", :locals => {:user => bindings[:object], :field => self, :form => bindings[:form]}
         end
       end
+      field :has_cert_access
     end
 
     list do
@@ -60,6 +73,7 @@ class User < ActiveRecord::Base
       end
       field :email
       field :created_at
+      field :has_cert_access
     end
        
   end
@@ -67,6 +81,18 @@ class User < ActiveRecord::Base
   def self.email_recipients
     emails = []
     User.all.each {|u| emails << u.email}
+    emails
+  end
+
+  def self.admin_email_recipients
+    emails = []
+    User.admins.each {|u| emails << u.email}
+    emails
+  end
+
+  def self.examiner_email_recipients
+    emails = []
+    User.examiners.each {|u| emails << u.email}
     emails
   end
 

@@ -9,7 +9,7 @@ class PtdMailer < ActionMailer::Base
 
   def welcome_mail_users(pilot)
     @pilot = pilot
-    mail(:to => User.email_recipients, :subject => "New pilot enrolled in the VATEUD PTD program")
+    mail(:to => User.admin_email_recipients, :subject => "New pilot enrolled in the VATEUD PTD program")
   end
 
   def instructor_mail_pilot(pilot)
@@ -79,10 +79,8 @@ class PtdMailer < ActionMailer::Base
   end
 
   def practical_mail_admin(pilot)
-    @pilot = pilot
-    admin = User.find_by_email("burak.bugday@vateud.net")
-    # admin = User.find_by_email("svilen@rubystudio.net")
-    mail(:to => admin.email, :subject => "VATEUD PTD Pilot Waiting for Upgrade") if admin
+    @pilot = pilot    
+    mail(:to => User.certified_emails, :subject => "VATEUD PTD Pilot Waiting for Upgrade")
   end
 
   def upgraded_mail_pilot(pilot)
@@ -116,6 +114,11 @@ class PtdMailer < ActionMailer::Base
     @pilot_names = []
     @training.pilots.each {|pilot| @pilot_names << pilot.name }
     mail(:to => @training.instructor.email, :subject => "VATEUD PTD Training Session Scheduled")
+  end 
+
+  def ready_for_practical_mail_examiners(pilot)
+    @pilot = pilot
+    mail(:to => User.examiner_email_recipients, :subject => "VATEUD PTD Pilot Ready for Examination")
   end 
 
 end

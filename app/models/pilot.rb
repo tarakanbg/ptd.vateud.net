@@ -3,7 +3,7 @@ class Pilot < ActiveRecord::Base
                   :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
-                  :slug, :examination_feedback, :token_reissued, :token_reissued_date
+                  :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -31,6 +31,7 @@ class Pilot < ActiveRecord::Base
   after_create :send_welcome_mail
   after_save :saving_callbacks
   before_save :before_saving_callbacks
+
 
   def self.chart_data(start = 1.year.ago)
     pilots = pilots_by_day(start)
@@ -72,6 +73,7 @@ class Pilot < ActiveRecord::Base
     send_practical_emails
     send_upgraded_emails
     send_examination_feedback
+    send_ready_for_practical_emails    
   end
 
   def before_saving_callbacks
@@ -112,6 +114,12 @@ class Pilot < ActiveRecord::Base
   def send_upgraded_emails
     if self.upgraded_changed? && self.upgraded?
       PtdMailer.upgraded_mail_pilot(self).deliver
+    end 
+  end
+
+  def send_ready_for_practical_emails
+    if self.ready_for_practical_changed? && self.ready_for_practical?
+      PtdMailer.ready_for_practical_mail_examiners(self).deliver
     end 
   end
 
@@ -195,6 +203,7 @@ class Pilot < ActiveRecord::Base
       field :theory_passed
       field :theory_passed_date
       field :theory_score
+      field :ready_for_practical
       field :examination
       field :practical_passed
       field :practical_passed_date
@@ -233,6 +242,7 @@ class Pilot < ActiveRecord::Base
         read_only true
       end
       field :theory_score
+      field :ready_for_practical
       field :examination do
         # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
         associated_collection_scope do
@@ -278,7 +288,6 @@ class Pilot < ActiveRecord::Base
       field :atc_rating
       field :instructor
       field :instructor_assigned_date
-      field :examination
       field :token_issued
       field :token_issued_date
       field :token_reissued
@@ -286,6 +295,8 @@ class Pilot < ActiveRecord::Base
       field :theory_passed
       field :theory_passed_date
       field :theory_score
+      field :ready_for_practical
+      field :examination
       field :practical_passed
       field :practical_passed_date
       field :practical_score

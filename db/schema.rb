@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429211832) do
+ActiveRecord::Schema.define(:version => 20130502134234) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20130429211832) do
     t.text     "examination_feedback"
     t.boolean  "token_reissued",           :default => false
     t.datetime "token_reissued_date"
+    t.boolean  "ready_for_practical",      :default => false
   end
 
   add_index "pilots", ["slug"], :name => "index_pilots_on_slug", :unique => true
