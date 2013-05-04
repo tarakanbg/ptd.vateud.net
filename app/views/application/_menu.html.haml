@@ -12,7 +12,9 @@
       / </a>
       .nav-collapse.collapse
         %ul.nav.pull-right
-          %li= link_to "ENROLL", root_url
+          %li
+            <a href="/" data-no-turbolink>ENROLL</a>
+          %li= link_to "PILOT'S LIBRARY", "/library"
           %li= link_to "STATISTICS", root_url + "statistics"
           %li= link_to "PILOTS", pilots_url
           %li= link_to "TRAININGS", trainings_url
@@ -26,5 +28,7 @@
               %li= link_to "Managers", root_url + "staff"
               %li= link_to "Examiners", root_url + "staff"
               %li= link_to "Instructors", root_url + "staff"
-              %li= link_to "Staff login", root_url + "admin"
+              %li
+                <a href="/admin" data-no-turbolink>Staff login</a>
+
             

@@ -1,4 +1,5 @@
 PtdVateudNet::Application.routes.draw do
+
   devise_for :users
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -9,6 +10,10 @@ PtdVateudNet::Application.routes.draw do
   resources :trainings, :only => [:index]
   get "staff" => 'instructors#index'
   get "statistics" => 'pilots#statistics'
+  get "library" => 'library#index'
+  get "library/p2_presentation" => 'library#p2_presentation'
+  get "library/p1_presentation" => 'library#p1_presentation'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

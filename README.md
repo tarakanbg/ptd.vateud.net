@@ -20,14 +20,10 @@ Users can have __one or many__ backend roles. The role determines the set of per
 The currently existing roles are:
 
 * __Admin__: has full management access to the entire backend and all data types and records
-* __Examiner__: has read only access to the all data types. Has full management access to the "Examination" records. Can update existing pilot records for non-upgraded pilots.
-* __Instructor__: has read only access to the all data types. Has full management access to the "Trainings" records. Can update existing pilot records for non-upgraded pilots.
+* __Examiner__: has read only access to the all data types. Has full management access to the "Examination" records. Can update existing pilot records for non-upgraded pilots. Can update their own personal user details & password.
+* __Instructor__: has read only access to the all data types. Has full management access to the "Trainings" records. Can update existing pilot records for non-upgraded pilots. Can update their own personal user details & password.
 
 A user __without any defined role__ has read-only access to the entire backend.
-
-Note: It's perfectly possible to combine several roles to one user, so for example a single user
-can be both an instructor and an examiner, which would grant him the combined privileges
-of both these roles.
 
 ### Dashboard
 The dashboard is the starting place for admins and managers and lists a summary of all currently existing record types. The navigation menu on the left allows switching between the available record types.
@@ -130,6 +126,7 @@ _The following data is stored and can be manipulated for each record:_
 * Theory passed
 * Theory passed date/time
 * Theory score
+* Ready for practical
 * Examination
 * Practical passed
 * Practical passed date/time
@@ -219,6 +216,12 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the pilot's instructor* informing him that his trainee
   has passed the test and about his mark
 
+### Upon marking the pilot as ready for pracitcal
+* When a pilot's record is edited to mark him as "Ready for practical exam" (either by his Instructor
+  or by an admin):
+* A notification email is sent *to all examiners* informing them there's a new pilot waiting for
+  practical examination
+
 ### Upon scheduling an examination
 * When a new examination record is created and/or when an examination date gets changed:
 * A notification email is sent *to the examiner* assigned for the examination, providing
@@ -233,6 +236,8 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the pilot* informing him that he has passed and about his mark
 * A notification email is sent *to the pilot's instructor* informing him that his trainee
   has passed the examination and about his mark  
+* A notification mail is sent *to all users with CERT* access informing them there's a pilot
+  waiting for an upgrade  
 
 ### Upon submitting a practical examination feedback
 * When a pilot's record is edited to add practical examination feedback by the pilot's examiner:
@@ -244,7 +249,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training 17 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training 19 different emails are being sent by the
 application to different recipients__
 
 
