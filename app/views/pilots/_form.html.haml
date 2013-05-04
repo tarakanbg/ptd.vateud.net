@@ -11,7 +11,8 @@
   = f.input :vacc, :label => 'VACC', :input_html => { :class => 'span3' }
   = f.association :atc_rating, :label => 'ATC rating', :include_blank => "Please select...", :input_html => { :class => 'span3' }
   %label.select.required.control-label Spam protection:
-  %p= recaptcha_tags(:error => 'Verify captcha!', :display => {:theme => 'clean'})
+  .captcha.center
+    %p= recaptcha_tags(:error => 'Verify captcha!', :display => {:theme => 'clean'})
 
 
   .actions.center
