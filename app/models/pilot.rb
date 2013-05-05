@@ -57,6 +57,30 @@ class Pilot < ActiveRecord::Base
     end
   end
 
+  def self.yearly_chart_data(start = 1.year.ago)
+    pilots = pilots_by_month(start)
+    examinations = Examination.records_by_month(start)
+    trainings = Training.records_by_month(start)
+    (start.to_date..Date.today).map do |date|
+      {
+        created_at: date,
+        pilots: pilots[date].to_i || 0,
+        examinations: examinations[date].to_i || 0,
+        trainings: trainings[date].to_i || 0
+      }
+    end
+  end
+
+  def self.pilots_by_month(start)
+    pilots = unscoped.where(created_at: start.beginning_of_month..Time.zone.now)    
+    pilots = pilots.group('date(created_at)')
+    pilots = pilots.order('date(created_at)')
+    pilots = pilots.select('date(created_at) as created_at, count(*) as count')
+    pilots.each_with_object({}) do |pilot, counts|
+      counts[pilot.created_at.to_date] = pilot.count
+    end
+  end
+
   def url
     Digest::SHA1.hexdigest self.name+self.created_at.to_s+self.vatsimid.to_s+"rgy345sjk"
   end
