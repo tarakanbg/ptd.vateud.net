@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
           bindings[:view].render :partial => "roles_partial", :locals => {:user => bindings[:object], :field => self, :form => bindings[:form]}
         end
       end
-      field :has_cert_access
+      field :has_cert_access 
     end
 
     list do

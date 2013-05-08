@@ -72,7 +72,7 @@ class Examination < ActiveRecord::Base
           Proc.new { |scope|
             # scoping all Players currently, let's limit them to the team's league
             # Be sure to limit if there are a lot of Players and order them by position
-            scope = scope.where(examination_id: nil)
+            scope = scope.where(upgraded: false)
             scope = scope.limit(30)
           }
         end

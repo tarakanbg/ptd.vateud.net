@@ -57,3 +57,5 @@ gem "will_paginate", "~> 3.0.4"
 gem "bootstrap-will_paginate", "~> 0.0.9"
 gem "cancan", "~> 1.6.9"
 gem "turbolinks", "~> 1.1.1"
+
+
