@@ -17,4 +17,3 @@
 //=  require 'raphael'
 //=  require 'morris'
 //=  require 'graphs'
-//= require turbolinks

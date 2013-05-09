@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502134234) do
+ActiveRecord::Schema.define(:version => 20130509120336) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(:version => 20130502134234) do
     t.integer  "priority"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "downloads", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "examinations", :force => true do |t|
@@ -50,6 +62,19 @@ ActiveRecord::Schema.define(:version => 20130502134234) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "pilot_files", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "pilot_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "pilots", :force => true do |t|
@@ -81,6 +106,10 @@ ActiveRecord::Schema.define(:version => 20130502134234) do
     t.boolean  "token_reissued",           :default => false
     t.datetime "token_reissued_date"
     t.boolean  "ready_for_practical",      :default => false
+    t.boolean  "theory_failed",            :default => false
+    t.boolean  "practical_failed",         :default => false
+    t.datetime "theory_failed_date"
+    t.datetime "practical_failed_date"
   end
 
   add_index "pilots", ["slug"], :name => "index_pilots_on_slug", :unique => true

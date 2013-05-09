@@ -123,17 +123,22 @@ _The following data is stored and can be manipulated for each record:_
 * Token issued date/time
 * Token reissued
 * Token reissued date/time
+* Theory failed
+* Theory failed date/time
 * Theory passed
 * Theory passed date/time
 * Theory score
 * Ready for practical
 * Examination
+* Practical failed
+* Practical failed date/time
 * Practical passed
 * Practical passed date/time
 * Practical score
 * Examination feedback
 * Upgraded
 * Upgraded date/tme
+* Pilot files
 * Notes
 
 Some of this data is __automatically collected__ and stored by the app without manual input. See
@@ -146,6 +151,19 @@ Note that upon editing a pilot record to assign or re-assign him to an examinati
 _Data available by association, and listed on each pilot's "show" page:_
 
 * Trainings
+
+#### Pilot Files
+One or multiple files can be uploaded and associated with any pilot record. These can be
+examination results cards, feedback or any kind of document that needs to be attached and kept
+together with the pilot record.
+
+_The following data is stored and can be manipulated for each record:_
+
+* Name
+* Description
+* Pilot (the pilot, that the file is attached to)
+* User (the backend user who uploaded the file)
+* File (the physical file itself)
 
 #### Examinations
 Examination records are created (scheduled) manually by the app administrators or by examiners.
@@ -176,6 +194,31 @@ _The following data is stored and can be manipulated for each record:_
 Note that when creating or editing a training only the trainees who haven't been upgraded yet will be
 available for inclusion.
 Changing some of this data triggers __email notifications__. See "Email automation" section below.
+
+#### Downloads
+These are just files uploaded to the application by any backend user and downloadable by any other
+backend user. They are not associated with any other record type.
+
+_The following data is stored and can be manipulated for each record:_
+
+* Name
+* Description
+* User (the backend user who uploaded the file)
+* File (the physical file itself)
+
+## File uploads & downloads
+
+The application allows 2 types of file uploads:
+
+* Pilot files: associated with (attached to) a particular pilot record. Can be done either by
+  directly editing the pilot record abd using the nested form there, or by using the Pilot Files
+  section of the backend (probably less convenient)
+* Downloads: general collection of files, not associated with any other record type. Can be manipulated
+  via the "Downloads" section
+
+Below is an example of a nested form for attaching files to a pilot record:
+
+![Pilot FIles](http://i.imgur.com/RpK4Nb7.png)
 
 ## Email automation
 
@@ -209,6 +252,13 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the pilot*, advising them they can now sit their theoretical
   test and giving them instructions on how to access and log into the test system (currently ATSimTest)
 
+### Upon failing the theoretical exam
+* When a pilot's record is edited to acknowledge the failing of a theoretical exam and his mark:
+* A notification email is sent *to the pilot* informing him that he has failed and about his mark,
+  and advising them to expect an instructor contact for assitance and training before proceeding further
+* A notification email is sent *to all instructors* informing them that a pilot has just failed an exam,
+  and suggesting to contact the pilot for remedial training
+
 ### Upon passing the theoretical exam
 
 * When a pilot's record is edited to acknowledge the passing of a theoretical exam and his mark:
@@ -231,6 +281,13 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the instructor(s)* of all pilots involved in the examination
   with the aforementioned details
 
+### Upon failing the practical exam
+* When a pilot's record is edited to acknowledge the failing of a practical exam and his mark:
+* A notification email is sent *to the pilot* informing him that he has failed and about his mark,
+  and advising them to expect an instructor contact for assitance and training before proceeding further
+* A notification email is sent *to all instructors* informing them that a pilot has just failed an exam,
+  and suggesting to contact the pilot for remedial training  
+
 ### Upon passing the practical exam
 * When a pilot's record is edited to acknowledge the passing of a practical exam and his mark:
 * A notification email is sent *to the pilot* informing him that he has passed and about his mark
@@ -249,7 +306,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training 19 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training 23 different emails are being sent by the
 application to different recipients__
 
 
@@ -266,7 +323,9 @@ automatically without manual input and are available for reference and housekeep
 * Instructor assigned
 * Exam token issued
 * Exam token re-issued
+* Theoretical exam failed
 * Theoretical exam passed
+* Practical exam failed
 * Practical exam passed
 * Upgraded
 * Last update of the pilot record (on any change)

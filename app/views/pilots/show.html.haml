@@ -58,7 +58,12 @@
         - if @pilot.token_issued?
           %p
             %label.string.required.control-label Token issued:
-            %span.record-details #{@pilot.token_issued_date}  
+            %span.record-details #{@pilot.token_issued_date} 
+
+        - if @pilot.theory_failed?
+          %p
+            %label.string.required.control-label Theory failed:
+            %span.record-details #{@pilot.theory_failed_date}      
 
         - if @pilot.token_reissued?
           %p
@@ -82,6 +87,11 @@
           %p
             %label.string.required.control-label Examiner:
             %span.record-details #{@pilot.examination.examiner.name}, ID #{@pilot.examination.examiner.vatsimid}
+
+        - if @pilot.practical_failed?
+          %p
+            %label.string.required.control-label Practical failed:
+            %span.record-details #{@pilot.practical_failed_date} 
 
         - if @pilot.practical_passed?
           %p

@@ -9,11 +9,17 @@ class Ability
         can :manage, :all
       elsif user.is? :examiner
         can :manage, [Examination] 
+        can :manage, [Download] 
         can :update, Pilot, :upgraded => false
+        can :show_in_app, Pilot
+        can :history, :all
         can :update, User, :id => user.id
       elsif user.is? :instructor
         can :manage, [Training]
+        can :manage, [Download] 
         can :update, Pilot, :upgraded => false
+        can :show_in_app, Pilot
+        can :history, :all
         can :update, User, :id => user.id
       end
       

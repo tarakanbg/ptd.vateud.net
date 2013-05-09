@@ -3,7 +3,8 @@ class Pilot < ActiveRecord::Base
                   :practical_passed, :rating_id, :theory_passed, :upgraded, :vacc, :vatsimid,
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
-                  :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical
+                  :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical,
+                  :theory_failed, :theory_failed_date, :practical_failed, :practical_failed_date
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -22,6 +23,10 @@ class Pilot < ActiveRecord::Base
   has_and_belongs_to_many :trainings
   belongs_to :instructor
   belongs_to :rating
+  has_many :pilot_files, :inverse_of => :pilot
+
+  accepts_nested_attributes_for :pilot_files, :allow_destroy => true
+  attr_accessible :pilot_files_attributes, :allow_destroy => true
 
   validates :name, :email, :atc_rating_id, :division_id, :rating_id, :vatsimid, :presence => true
   validates :name, :length => { :minimum => 4 }
@@ -97,7 +102,8 @@ class Pilot < ActiveRecord::Base
     send_practical_emails
     send_upgraded_emails
     send_examination_feedback
-    send_ready_for_practical_emails    
+    send_ready_for_practical_emails  
+    send_failure_emails  
   end
 
   def before_saving_callbacks
@@ -132,6 +138,17 @@ class Pilot < ActiveRecord::Base
       PtdMailer.practical_mail_pilot(self).deliver
       PtdMailer.practical_mail_instructor(self).deliver
       PtdMailer.practical_mail_admin(self).deliver
+    end
+  end
+
+  def send_failure_emails
+    if self.theory_failed_changed? && self.theory_failed?      
+      PtdMailer.theory_fail_mail_instructors(self).deliver
+      PtdMailer.theory_fail_mail_pilot(self).deliver
+    end
+    if self.practical_failed_changed? && self.practical_failed?      
+      PtdMailer.practical_fail_mail_instructors(self).deliver
+      PtdMailer.practical_fail_mail_pilot(self).deliver
     end
   end
 
@@ -177,6 +194,16 @@ class Pilot < ActiveRecord::Base
     elsif self.practical_passed_changed?
       self.practical_passed_date = nil
     end  
+    if self.theory_failed_changed? && self.theory_failed?
+      self.theory_failed_date = Time.now
+    elsif self.theory_failed_changed?
+      self.theory_failed_date = nil
+    end 
+    if self.practical_failed_changed? && self.practical_failed?
+      self.practical_failed_date = Time.now
+    elsif self.practical_failed_changed?
+      self.practical_failed_date = nil
+    end
     if self.upgraded_changed? && self.upgraded?
       self.upgraded_date = Time.now
     elsif self.upgraded_changed?
@@ -233,7 +260,7 @@ class Pilot < ActiveRecord::Base
       field :practical_passed_date
       field :practical_score
       field :upgraded
-      field :upgraded_date
+      field :upgraded_date      
     end
 
     edit do      
@@ -248,23 +275,12 @@ class Pilot < ActiveRecord::Base
       field :division
       field :vacc
       field :atc_rating
-      field :instructor
-      field :instructor_assigned_date do
-        read_only true
-      end
+      field :instructor      
       field :trainings
-      field :token_issued
-      field :token_issued_date do
-        read_only true
-      end
-      field :token_reissued
-      field :token_reissued_date do
-        read_only true
-      end
-      field :theory_passed
-      field :theory_passed_date do
-        read_only true
-      end
+      field :token_issued     
+      field :theory_failed
+      field :token_reissued      
+      field :theory_passed      
       field :theory_score
       field :ready_for_practical
       field :examination do
@@ -284,17 +300,13 @@ class Pilot < ActiveRecord::Base
             end
           }
         end
-      end    
-      field :practical_passed
-      field :practical_passed_date do
-        read_only true
-      end
+      end   
+      field :practical_failed 
+      field :practical_passed      
       field :practical_score
       field :examination_feedback
-      field :upgraded
-      field :upgraded_date do
-        read_only true
-      end
+      field :upgraded      
+      field :pilot_files
       field :notes
     end
 
@@ -314,6 +326,8 @@ class Pilot < ActiveRecord::Base
       field :instructor_assigned_date
       field :token_issued
       field :token_issued_date
+      field :theory_failed
+      field :theory_failed_date
       field :token_reissued
       field :token_reissued_date
       field :theory_passed
@@ -321,12 +335,15 @@ class Pilot < ActiveRecord::Base
       field :theory_score
       field :ready_for_practical
       field :examination
+      field :practical_failed
+      field :practical_failed_date
       field :practical_passed
       field :practical_passed_date
       field :practical_score
       field :examination_feedback
       field :upgraded
       field :upgraded_date
+      field :pilot_files
       field :notes
     end
        

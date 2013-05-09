@@ -121,5 +121,24 @@ class PtdMailer < ActionMailer::Base
     mail(:to => User.examiner_email_recipients, :subject => "VATEUD PTD Pilot Ready for Examination")
   end 
 
-end
+  def theory_fail_mail_instructors(pilot)
+    @pilot = pilot
+    mail(:to => User.instructor_email_recipients, :subject => "VATEUD PTD Pilot Failed Theory Test")
+  end
 
+  def practical_fail_mail_instructors(pilot)
+    @pilot = pilot
+    mail(:to => User.instructor_email_recipients, :subject => "VATEUD PTD Pilot Failed Practical Exam")
+  end
+
+  def theory_fail_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Theory Test Failed")
+  end
+
+  def practical_fail_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Practical Examination Failed")
+  end
+
+end

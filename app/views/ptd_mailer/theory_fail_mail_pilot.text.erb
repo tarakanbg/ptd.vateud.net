@@ -1,0 +1,18 @@
+*This is an automated email message, please do not reply!*
+    
+Dear <%= @pilot.name %>
+========================
+
+  Most unfortunately you have failed your <%= @pilot.rating.name %> rating theory test
+  within VATEUD PTD with a score of <%= @pilot.theory_score || "[undefined]" %>.
+
+  You can expect a contact from one of our instructors to assist you with preparation
+  and training before continuing further.
+
+  You can always check the history and details of your personal record
+  at the following address:
+  http://ptd.vateud.net/pilots/<%=@pilot.slug %>      
+
+Have a great day!
+
+*VATEUD Pilot Training Department Team*

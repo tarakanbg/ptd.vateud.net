@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear VATEUD PTD instructor,</h1>
+    <p>
+      A pilot has just failed his <%= @pilot.rating.name %> rating theory test.<br/>
+      
+      Pilot details:<br /><br />
+
+      Name: <%= @pilot.name %><br/>
+      VATSIM ID: <%= @pilot.vatsimid %><br/>
+      Email: <%= @pilot.email %><br/>
+      Division: <%= @pilot.division.name %><br/>
+      vACC: <%= @pilot.vacc %><br/>
+      ATC rating: <%= @pilot.atc_rating.name %><br/>
+    </p>
+    <p>
+      Kindly consider contacting the pilot for remedial training and assistance,
+      before he continues with his further exams. <br /><br />
+      You can manage his record and assign examiner and examination date
+      at <a href="http://ptd.vateud.net/admin">ptd.vateud.net/admin</a>
+    </p>
+    <p>Have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

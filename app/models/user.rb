@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :roles, :has_cert_access
   # attr_accessible :title, :body
 
+  has_many :pilot_files, :inverse_of => :user
+  has_many :downloads, :inverse_of => :user
+
   default_scope order('id DESC')
 
   ROLES = %w[admin examiner instructor]
@@ -43,6 +46,12 @@ class User < ActiveRecord::Base
     examiners = []   
     User.all.each {|user| examiners << user if user.is? :examiner} 
     examiners
+  end
+
+  def self.instructors
+    instructors = []   
+    User.all.each {|user| instructors << user if user.is? :instructor} 
+    instructors
   end
 
 
@@ -93,6 +102,12 @@ class User < ActiveRecord::Base
   def self.examiner_email_recipients
     emails = []
     User.examiners.each {|u| emails << u.email}
+    emails
+  end
+
+  def self.instructor_email_recipients
+    emails = []
+    User.instructors.each {|u| emails << u.email}
     emails
   end
 
