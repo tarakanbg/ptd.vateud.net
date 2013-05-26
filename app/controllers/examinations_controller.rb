@@ -2,7 +2,7 @@ class ExaminationsController < ApplicationController
   # GET /examinations
   # GET /examinations.json
   def index
-    @examinations = Examination.paginate(:page => params[:page], :per_page => 20)
+    @examinations = Examination.order("date DESC").paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb

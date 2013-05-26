@@ -7,14 +7,16 @@ class Ability
       can :dashboard  
       if user.is? :admin
         can :manage, :all
-      elsif user.is? :examiner
+      end  
+      if user.is? :examiner
         can :manage, [Examination] 
         can :manage, [Download] 
         can :update, Pilot, :upgraded => false
         can :show_in_app, Pilot
         can :history, :all
         can :update, User, :id => user.id
-      elsif user.is? :instructor
+      end
+      if user.is? :instructor
         can :manage, [Training]
         can :manage, [Download] 
         can :update, Pilot, :upgraded => false

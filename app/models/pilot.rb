@@ -161,6 +161,7 @@ class Pilot < ActiveRecord::Base
   def send_ready_for_practical_emails
     if self.ready_for_practical_changed? && self.ready_for_practical?
       PtdMailer.ready_for_practical_mail_examiners(self).deliver
+      PtdMailer.ready_for_practical_mail_pilot(self).deliver
     end 
   end
 

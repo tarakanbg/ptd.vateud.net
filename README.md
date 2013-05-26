@@ -271,6 +271,8 @@ Emails are automatically being sent by the app in the following cases to the fol
   or by an admin):
 * A notification email is sent *to all examiners* informing them there's a new pilot waiting for
   practical examination
+* A notification email is sent to the pilot to get in  touch with one of the examiners for arranging 
+  the date and time of the practical examination.  
 
 ### Upon scheduling an examination
 * When a new examination record is created and/or when an examination date gets changed:
@@ -306,7 +308,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training 23 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training 24 different emails are being sent by the
 application to different recipients__
 
 

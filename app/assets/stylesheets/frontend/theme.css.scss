@@ -466,8 +466,9 @@ header {
 #login {width:235px; min-height:230px;margin-left:auto;margin-right:auto;padding-top:40px;padding-left:40px; padding-right:40px; padding-bottom:10px;background:#E0E6EE;border:1px solid gray; margin-top:70px;}
 #enroll {width:400px; min-height:430px;margin-left:auto;margin-right:auto;padding-top:40px;padding-left:40px; padding-right:40px; padding-bottom:10px;background:#E0E6EE;border:1px solid gray;}
 .rememberme {float:left;}
-.rememberme label {display:inline; color:gray; }
-.rememberme input {float:right; display:inline;margin-left:20px;}
+.rememberme label {display:inline-block; color:gray; margin-bottom: -5px; }
+.rememberme input {float:right; display:inline-block;margin-left:20px;}
+.controls {display: inline-block;padding-left: 15px; padding-right: 15px;}
 
 .form-horizontal .control-label {text-align: left; font-weight: bold; color:#004661;}
 #enroll p label {text-align: left; font-weight: bold; color: #004661; width: 150px; display:inline; float:left;}
@@ -499,6 +500,8 @@ p#notice {
 table.pilots {width:100%;}
 table.pilots th {text-align: left; padding-right:5px; border: 1px solid #646464; background-color: #646464; color:white;}
 table.pilots td {text-align:left; padding-right: 5px; padding-top: 4px; padding-bottom: 4px;}
+table.pilots th.date {min-width: 200px;}
+table.pilots th.subject {min-width: 200px;}
 
 table.staff {width:100%; margin-top: 20px;}
 table.staff th {text-align: left; padding-right:5px; border: 1px solid #646464; background-color: #646464; color:white;}
@@ -509,3 +512,7 @@ table.staff td {text-align:left; padding-right: 5px; padding-top: 4px; padding-b
 
 span.stats_label {width:200px; display: inline-block;}
 .intro li span.badge {}
+
+#footer {position: fixed; bottom: 0px; width: 100%; }
+
+body {margin-bottom: 60px;}

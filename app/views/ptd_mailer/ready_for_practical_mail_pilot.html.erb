@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear <%= @pilot.name %>,</h1>
+    <p>
+      You have been marked in our system as ready for taking your <%= @pilot.rating.name %>
+      rating practical examination.<br/>
+      
+      In order to do so, please contact one of our PTD examiners,
+      <a href="http://ptd.vateud.net/staff">listed here</a> and let them arrange your
+      examination session.
+    </p>
+    
+    <p>Good luck and have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

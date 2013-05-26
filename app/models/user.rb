@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :pilot_files, :inverse_of => :user
   has_many :downloads, :inverse_of => :user
 
-  default_scope order('id DESC')
+  default_scope order('name ASC')
 
   ROLES = %w[admin examiner instructor]
 

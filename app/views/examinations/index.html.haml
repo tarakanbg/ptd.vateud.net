@@ -7,11 +7,11 @@
         #pilots-listing
           %table.pilots
             %tr
-              %th Date
-              %th Examiner
+              %th.date Date
+              %th.subject Examiner
               %th Origin
               %th Destination
-              %th Pilots
+              %th.pilots Pilots
             - @examinations.each do |examination|
               %tr
                 %td= examination.date

@@ -1,7 +1,7 @@
 class Instructor < ActiveRecord::Base
   attr_accessible :email, :name, :vatsimid
 
-  default_scope order('id DESC')
+  default_scope order('name ASC')
 
   has_many :pilots
   has_many :trainings

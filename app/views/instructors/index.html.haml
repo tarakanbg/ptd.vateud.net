@@ -28,7 +28,7 @@
               %th Vatsim ID
             - @examiners.each do |examiner|
               %tr
-                %td= examiner.name
+                %td= mail_to examiner.email, examiner.name, :encode => "javascript"
                 %td= examiner.vatsimid
                 
       .span4.intro   
@@ -39,7 +39,7 @@
               %th Vatsim ID
             - @instructors.each do |instructor|
               %tr
-                %td= instructor.name
+                %td= mail_to instructor.email, instructor.name, :encode => "javascript"
                 %td= instructor.vatsimid
                 
         
