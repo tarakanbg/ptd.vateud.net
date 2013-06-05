@@ -16,6 +16,7 @@ class Pilot < ActiveRecord::Base
   scope :graduated, where(:upgraded => true)
   scope :active, where(:upgraded => false)
   scope :unexamined, where(:examination_id => nil)
+  # scope :to_be_examined, where(upgraded: false, ready_for_practical: true).reorder('name asc')
 
   belongs_to :atc_rating
   belongs_to :division
