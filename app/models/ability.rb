@@ -11,7 +11,7 @@ class Ability
       if user.is? :examiner
         can :manage, [Examination] 
         can :manage, [Download] 
-        can :update, Pilot, :upgraded => false
+        can :update, Pilot
         can :show_in_app, Pilot
         can :history, :all
         can :update, User, :id => user.id
@@ -19,7 +19,7 @@ class Ability
       if user.is? :instructor
         can :manage, [Training]
         can :manage, [Download] 
-        can :update, Pilot, :upgraded => false
+        can :update, Pilot
         can :show_in_app, Pilot
         can :history, :all
         can :update, User, :id => user.id
