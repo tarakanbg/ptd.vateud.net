@@ -37,7 +37,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
-gem "rails_admin", "~> 0.4.9"
+gem "rails_admin", :git => "git://github.com/tarakanbg/rails_admin.git"
 
 gem "devise"
 gem "paper_trail", "~> 2.7.1"
