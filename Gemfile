@@ -58,5 +58,5 @@ gem "bootstrap-will_paginate", "~> 0.0.9"
 gem "cancan", "~> 1.6.9"
 
 gem "paperclip", "~> 3.4.1"
-
+gem 'yaml_db'
 
