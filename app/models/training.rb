@@ -1,12 +1,17 @@
 class Training < ActiveRecord::Base
-  attr_accessible :date, :departure_airport, :destination_airport, :instructor_id, :notes
+  attr_accessible :date, :departure_airport, :destination_airport, :instructor_id, :notes, :rating_id
 
   has_and_belongs_to_many :pilots
   belongs_to :instructor
+  belongs_to :rating
 
   attr_accessible :pilot_ids
 
-  validates :date, :instructor_id, :presence => true
+  validates :date, :instructor_id, :rating, :presence => true
+
+  scope :upcoming, lambda {
+    where("date > ?", Time.now)
+  }
 
   # after_create :send_initial_mail
   after_save :send_mail
@@ -50,6 +55,7 @@ class Training < ActiveRecord::Base
     
     edit do
       field :date
+      field :rating
       field :instructor
       field :departure_airport
       field :destination_airport      
@@ -80,9 +86,18 @@ class Training < ActiveRecord::Base
         end
       end
 
+      field :rating  do
+        column_width 60  
+      end
       field :instructor
-      field :departure_airport
-      field :destination_airport
+      field :departure_airport do
+        column_width 60        
+        label "Departure" 
+      end
+      field :destination_airport  do
+        column_width 60        
+        label "Destination" 
+      end
     end  
        
   end

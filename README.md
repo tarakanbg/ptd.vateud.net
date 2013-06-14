@@ -171,6 +171,7 @@ Examination records are created (scheduled) manually by the app administrators o
 _The following data is stored and can be manipulated for each record:_
 
 * Date / Time
+* Rating
 * Departure airport
 * Destination airport
 * Examiner
@@ -186,6 +187,7 @@ Training records are created (scheduled) manually by the app administrators or b
 _The following data is stored and can be manipulated for each record:_
 
 * Date / Time
+* Rating
 * Departure airport
 * Destination airport
 * Instructor
@@ -220,6 +222,14 @@ Below is an example of a nested form for attaching files to a pilot record:
 
 ![Pilot FIles](http://i.imgur.com/RpK4Nb7.png)
 
+## Creating "blank" examinations or trainings
+
+Instructors or examiners can create "blank" training or examination sessions (i.e. with no
+pilots included), thus indicating that they'll be available on particular date and time for a session.
+This availability informaton can be thereafter used by the pilots to selectively join sessions via their
+personal profiles on the frontend (see section "Joining pre-scheduled examinations and training sessions"
+below).
+
 ## Email automation
 
 Emails are automatically being sent by the app in the following cases to the following recipients:
@@ -246,6 +256,13 @@ Emails are automatically being sent by the app in the following cases to the fol
   the necessary details: date, time, arrival and departure airports and participating pilot(s), additional notes
 * A notification email is sent *to all pilots* involved in the training with all the
   aforementioned details
+
+### Upon joining a pre-scheduled training
+* When a pilot joins a pre-scheduled training via his personal profile on the frontend
+* A notification email is sent *to the instructor* assigned for the training, providing
+  the details of the newly joined pilot
+* A notification email is sent *to the pilot* who joined, providing the details of the 
+  training: date, time, arrival and departure airports, instructor's name and email  
 
 ### Upon issuing or re-issuing an exam token
 * When a pilot's record is marked with the "Token issued" or "Token re-issued" check-mark:
@@ -283,6 +300,13 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the instructor(s)* of all pilots involved in the examination
   with the aforementioned details
 
+### Upon joining a pre-scheduled examination
+* When a pilot joins a pre-scheduled examination via his personal profile on the frontend
+* A notification email is sent *to the examiner* assigned for the examination, providing
+  the details of the newly joined pilot
+* A notification email is sent *to the pilot* who joined, providing the details of the 
+  examination: date, time, arrival and departure airports, exmainer's name and email
+
 ### Upon failing the practical exam
 * When a pilot's record is edited to acknowledge the failing of a practical exam and his mark:
 * A notification email is sent *to the pilot* informing him that he has failed and about his mark,
@@ -308,7 +332,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training 24 different emails are being sent by the
+__Overall, over the life-cycle of a single pilot training up to 28 different emails may be sent by the
 application to different recipients__
 
 
@@ -357,17 +381,40 @@ enroll form at [http://ptd.vateud.net/](http://ptd.vateud.net/).
 Each pilot is limited to only check their own record and history, by using a unique, non-reversible URL.
 This URL is initially emailed to the pilot with the welcome email after enrolling, and subsequently 
 included in each notification email for the lifecycle of the training (see "Email Automation" section).
-An example of a public pilot record:
+
+An example of a public pilot record:  
 ![Record](http://i.imgur.com/9A40OGb.png)
+
+### Joining pre-scheduled examinations and training sessions
+Pilots are able, by using their personal profiles on the frontend, to join
+any already scheduled examination or training session matching their
+desired rating. Joining an examination is only available for pilots who are
+designated as "ready for practical". Joining a training is available for all 
+non-upgraded pilots.
+
+In their pesonal profiles the pilots can see a chronological list of all the scheduled
+trainings or examinations that they're eligible to enter, together with the
+basic session details: date, location, exmainer/instructor, etc plus a "Join" button
+that they can click to join the session.
+
+This allows pilots to be proactive and join exmaination or trainings on their discretion,
+without relying on the examiner or instructor to personally invite them. This also allows
+instructors or examiners to create "blank" training or examination sessions (i.e. with no
+pilots included), thus indicating that they'll be available on particular date and time. This
+availability informaton can be thereafter used by the pilots to selectively join sessions.
+
+When a pilot joins a session this way, both parties (the pilot and the affected examiner or
+instructor) are notified by email (see __Email Automation__).  
+![ProActivejoins](http://i.imgur.com/1vxBGXT.png)
 
 ### Frontend data tables
 Abridged data listings are published on the frontend in reverse chronological order for the
 following data types: pilot trainees, examinations, trainings, PTD staff. Below is a snippet of the pilot's
-table (the links point to each pilot's __vataware__ page):
+table (the links point to each pilot's __vataware__ page):  
 ![Pilots](http://i.imgur.com/SxV7U4n.png)
 
 ### Statistics
 The "Statistics" page shows activity charts (monthly and yearly) depicting the dynamics of trainee records,
 examinations and trainings. Some numbers are also published: total pilots enrolled, pilots that have passed theory,
-pilot's that have passed practical exam, upgraded pilots, total numbers of examinations and tranings, etc
+pilot's that have passed practical exam, upgraded pilots, total numbers of examinations and tranings, etc.  
 ![Stats](http://i.imgur.com/oDK8IBX.png)

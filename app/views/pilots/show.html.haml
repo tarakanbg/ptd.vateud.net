@@ -113,5 +113,11 @@
             %label.string.required.control-label Upgraded:
             %span.record-details #{@pilot.upgraded_date}                  
 
+    
+    = upcoming_examinations
+    = upcoming_trainings
     .row
-      %p.center= link_to "Read the PTD documentation", "http://vateud.net/training-department/pilot-td-aim"    
+      %p.center
+        = link_to "Read the PTD documentation", "http://vateud.net/training-department/pilot-td-aim"
+        <br />    
+        = link_to "Visit the pilot's library", "/library"    

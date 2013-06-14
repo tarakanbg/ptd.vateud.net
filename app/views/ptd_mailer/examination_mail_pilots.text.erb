@@ -9,6 +9,7 @@ Examination details:
 
   Date and Time: <%= @examination.date %>
   Examiner: <%= @examination.examiner.name %>
+  Rating: <%= @examination.rating.name %>
   Departure Airport: <%= @examination.departure_airport %>
   Arrival Airport:  <%= @examination.destination_airport %>
   Participating pilots: <%= @pilot_names.join(", ") %>

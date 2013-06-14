@@ -1,0 +1,23 @@
+.row 
+  .upcoming
+    %h4 Upcoming #{@pilot.rating.name} Examinations
+
+    %table
+      %tr
+        %th Date
+        %th Rating
+        %th Examiner
+        %th Origin
+        %th Destination
+        %th Action
+
+      - for examination in @examinations  
+        - unless examination.pilots.include?(@pilot)
+          %tr
+            %td= examination.date.to_formatted_s(:short) + "z"
+            %td= examination.rating.name
+            %td= mail_to examination.examiner.email, examination.examiner.name, :encode => "javascript"
+            %td= examination.departure_airport
+            %td= examination.destination_airport
+            %td= link_to raw('<i class="icon-forward icon-white"></i> Join'), {:action => :examination_join, :id => @pilot.id, :examination_id => examination.id}, :method => :put, :title => "Join this examination", :class => "btn btn-mini btn-success"
+

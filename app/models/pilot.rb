@@ -9,7 +9,8 @@ class Pilot < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url, use: :slugged
 
-  default_scope order('id DESC')
+  # default_scope order('id DESC')
+  default_scope order('pilots.id ASC')
 
   scope :theoretical, where(:theory_passed => true)
   scope :practical, where(:practical_passed => true)

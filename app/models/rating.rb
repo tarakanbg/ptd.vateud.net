@@ -2,6 +2,8 @@ class Rating < ActiveRecord::Base
   attr_accessible :description, :name, :priority
 
   has_many :pilots
+  has_many :examinations
+  has_many :trainings
 
   validates :name, :presence => true
 

@@ -13,6 +13,8 @@ PtdVateudNet::Application.routes.draw do
   get "library" => 'library#index'
   get "library/p2_presentation" => 'library#p2_presentation'
   get "library/p1_presentation" => 'library#p1_presentation'
+  put 'pilots/examination_join/:id' => 'pilots#examination_join'
+  put 'pilots/training_join/:id' => 'pilots#training_join'
 
 
   # The priority is based upon order of creation:

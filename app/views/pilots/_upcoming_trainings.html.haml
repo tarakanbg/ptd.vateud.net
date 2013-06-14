@@ -1,0 +1,23 @@
+.row 
+  .upcoming
+    %h4 Upcoming #{@pilot.rating.name} Trainings
+
+    %table
+      %tr
+        %th Date
+        %th Rating
+        %th Instructor
+        %th Origin
+        %th Destination
+        %th Action
+
+      - for training in @trainings  
+        - unless training.pilots.include?(@pilot)
+          %tr
+            %td= training.date.to_formatted_s(:short) + "z"
+            %td= training.rating.name
+            %td= mail_to training.instructor.email, training.instructor.name, :encode => "javascript"
+            %td= training.departure_airport
+            %td= training.destination_airport
+            %td= link_to raw('<i class="icon-forward icon-white"></i> Join'), {:action => :training_join, :id => @pilot.id, :training_id => training.id}, :method => :put, :title => "Join this training", :class => "btn btn-mini btn-success"
+

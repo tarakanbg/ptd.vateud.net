@@ -465,6 +465,7 @@ header {
 
 #login {width:235px; min-height:230px;margin-left:auto;margin-right:auto;padding-top:40px;padding-left:40px; padding-right:40px; padding-bottom:10px;background:#E0E6EE;border:1px solid gray; margin-top:70px;}
 #enroll {width:400px; min-height:430px;margin-left:auto;margin-right:auto;padding-top:40px;padding-left:40px; padding-right:40px; padding-bottom:10px;background:#E0E6EE;border:1px solid gray;}
+.upcoming {width:600px; margin-left:auto;margin-right:auto; margin-top:20px; margin-bottom: 10px; padding-top:5px;padding-left:40px; padding-right:40px; padding-bottom:10px;border:1px solid gray;}
 .rememberme {float:left;}
 .rememberme label {display:inline-block; color:gray; margin-bottom: -5px; }
 .rememberme input {float:right; display:inline-block;margin-left:20px;}
@@ -516,3 +517,6 @@ span.stats_label {width:200px; display: inline-block;}
 #footer {position: fixed; bottom: 0px; width: 100%; }
 
 body {margin-bottom: 60px;}
+
+.upcoming table {width:100%;}
+.upcoming table th {text-align: left;}

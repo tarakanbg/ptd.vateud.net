@@ -146,5 +146,28 @@ class PtdMailer < ActionMailer::Base
     mail(:to => @pilot.email, :subject => "VATEUD PTD Ready for Practical Examination")
   end
 
-end
+  def examination_join_mail_pilot(pilot, examination_id)
+    @pilot = pilot
+    @examination = Examination.find(examination_id)
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Examination Joined")
+  end
 
+  def examination_join_mail_examiner(pilot, examination_id)
+    @pilot = pilot
+    @examination = Examination.find(examination_id)
+    mail(:to => @examination.examiner.email, :subject => "VATEUD PTD Pilot Joined Your Examination")
+  end
+
+  def training_join_mail_pilot(pilot, training)
+    @pilot = pilot
+    @training = training
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Training Joined")
+  end
+
+  def training_join_mail_instructor(pilot, training)
+    @pilot = pilot
+    @training = training
+    mail(:to => @training.instructor.email, :subject => "VATEUD PTD Pilot Joined Your Training")
+  end
+
+end

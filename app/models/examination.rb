@@ -1,12 +1,13 @@
 class Examination < ActiveRecord::Base
-  attr_accessible :date, :departure_airport, :destination_airport, :examiner_id
+  attr_accessible :date, :departure_airport, :destination_airport, :examiner_id, :rating_id
 
   has_many :pilots, :inverse_of => :examination
   belongs_to :examiner
+  belongs_to :rating
 
   attr_accessible :pilot_ids
 
-  validates :date, :departure_airport, :destination_airport, :examiner_id, :presence => true
+  validates :date, :departure_airport, :destination_airport, :examiner_id, :rating, :presence => true
 
   scope :upcoming, lambda {
     where("date > ?", Time.now)
@@ -61,6 +62,7 @@ class Examination < ActiveRecord::Base
 
     edit do
       field :date
+      field :rating
       field :examiner
       field :departure_airport
       field :destination_airport
@@ -91,9 +93,19 @@ class Examination < ActiveRecord::Base
         end
       end
 
+      field :rating do
+        column_width 60        
+        label "Rating" 
+      end
       field :examiner
-      field :departure_airport
-      field :destination_airport
+      field :departure_airport do
+        column_width 60        
+        label "Departure" 
+      end
+      field :destination_airport  do
+        column_width 60        
+        label "Destination" 
+      end
     end  
        
   end
