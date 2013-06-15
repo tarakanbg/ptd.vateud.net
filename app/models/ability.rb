@@ -14,7 +14,7 @@ class Ability
         can :update, Pilot
         can :show_in_app, Pilot
         can :history, :all
-        can :update, User, :id => user.id
+        # can :update, User, :id => user.id
       end
       if user.is? :instructor
         can :manage, [Training]
@@ -22,7 +22,7 @@ class Ability
         can :update, Pilot
         can :show_in_app, Pilot
         can :history, :all
-        can :update, User, :id => user.id
+        # can :update, User, :id => user.id
       end
       
       # if user.role? :superadmin
