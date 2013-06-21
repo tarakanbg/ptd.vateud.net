@@ -23,12 +23,14 @@ class PtdMailer < ActionMailer::Base
   end
 
   def examination_mail_pilots(examination)
-    @examination = examination
-    pilot_emails = []
-    @examination.pilots.each {|pilot| pilot_emails << pilot.email }
-    @pilot_names = []
-    @examination.pilots.each {|pilot| @pilot_names << pilot.name }
-    mail(:to => pilot_emails, :subject => "VATEUD PTD Examination Scheduled")
+    if examination.pilots && examination.pilots.count > 0
+      @examination = examination
+      pilot_emails = []
+      @examination.pilots.each {|pilot| pilot_emails << pilot.email }
+      @pilot_names = []
+      @examination.pilots.each {|pilot| @pilot_names << pilot.name }
+      mail(:to => pilot_emails, :subject => "VATEUD PTD Examination Scheduled")
+    end
   end  
 
   def examination_mail_instructors(examination)
