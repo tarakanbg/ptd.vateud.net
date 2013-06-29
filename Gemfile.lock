@@ -141,6 +141,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.5)
+    redcarpet (2.3.0)
     remotipart (1.0.5)
     safe_yaml (0.9.3)
     sass (3.2.9)
@@ -193,6 +194,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rails_admin!
   recaptcha
+  redcarpet (~> 2.3.0)
   sass-rails (~> 3.2.3)
   simple_form (~> 2.1.0)
   sqlite3

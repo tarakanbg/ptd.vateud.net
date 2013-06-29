@@ -256,6 +256,7 @@ Emails are automatically being sent by the app in the following cases to the fol
   the necessary details: date, time, arrival and departure airports and participating pilot(s), additional notes
 * A notification email is sent *to all pilots* involved in the training with all the
   aforementioned details
+* A notification email is sent *to all admins* with the aforementioned details
 
 ### Upon joining a pre-scheduled training
 * When a pilot joins a pre-scheduled training via his personal profile on the frontend
@@ -299,6 +300,7 @@ Emails are automatically being sent by the app in the following cases to the fol
   aforementioned details
 * A notification email is sent *to the instructor(s)* of all pilots involved in the examination
   with the aforementioned details
+* A notification email is sent *to all admins* with the aforementioned details
 
 ### Upon joining a pre-scheduled examination
 * When a pilot joins a pre-scheduled examination via his personal profile on the frontend
@@ -332,7 +334,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training up to 28 different emails may be sent by the
+__Overall, over the life-cycle of a single pilot training up to 30 different emails may be sent by the
 application to different recipients__
 
 

@@ -2,7 +2,7 @@ class PilotsController < ApplicationController
   # GET /pilots
   # GET /pilots.json
   def index
-    @pilots = Pilot.paginate(:page => params[:page], :per_page => 20)
+    @pilots = Pilot.unscoped.reorder("created_at DESC").paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb

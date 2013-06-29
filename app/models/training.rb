@@ -47,6 +47,7 @@ class Training < ActiveRecord::Base
     if self.date_changed?
       PtdMailer.training_mail_pilots(self).deliver
       PtdMailer.training_mail_instructor(self).deliver
+      PtdMailer.training_mail_admins(self).deliver
     end
   end
   

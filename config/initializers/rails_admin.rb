@@ -52,7 +52,7 @@ RailsAdmin.config do |config|
   # Now you probably need to tour the wiki a bit: https://github.com/sferik/rails_admin/wiki
   # Anyway, here is how RailsAdmin saw your application's models when you ran the initializer:
   config.navigation_static_links = {
-  'User Guide' => 'https://gist.github.com/tarakanbg/5419629'
+  'User Guide' => '/help'
   }
 
 end

@@ -54,11 +54,29 @@ class Examination < ActiveRecord::Base
       PtdMailer.examination_mail_pilots(self).deliver
       PtdMailer.examination_mail_instructors(self).deliver
       PtdMailer.examination_mail_examiner(self).deliver
+      PtdMailer.examination_mail_admins(self).deliver
     end
   end
   
   rails_admin do 
-    navigation_label 'Operations records'   
+    navigation_label 'Operations records' 
+
+    show do
+      field :date
+      field :rating
+      field :examiner
+      field :departure_airport
+      field :destination_airport
+      field :pilots
+      # field :pilots do
+      #   pretty_value do          
+      #     pilots = bindings[:object].pilots if bindings[:object].pilots
+      #     for pilot in pilots
+      #       bindings[:view].link_to "#{pilot.name}", bindings[:view].rails_admin.edit_path('pilot', pilot.id)
+      #     end
+      #   end
+      # end
+    end
 
     edit do
       field :date

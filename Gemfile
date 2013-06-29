@@ -59,4 +59,5 @@ gem "cancan", "~> 1.6.9"
 
 gem "paperclip", "~> 3.4.1"
 gem 'yaml_db'
+gem "redcarpet", "~> 2.3.0"
 

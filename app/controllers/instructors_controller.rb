@@ -82,4 +82,10 @@ class InstructorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def help
+    m = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    @content = m.render(File.open(Rails.root + "README.md", 'r').read)
+    # render :text => content
+  end
 end
