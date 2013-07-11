@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614154455) do
+ActiveRecord::Schema.define(:version => 20130711163109) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(:version => 20130614154455) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "newbies", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "vatsimid"
+    t.string   "country"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "newbies", ["slug"], :name => "index_newbies_on_slug", :unique => true
 
   create_table "pilot_files", :force => true do |t|
     t.integer  "user_id"
