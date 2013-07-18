@@ -1,0 +1,20 @@
+= simple_form_for @pilot, :html => { :class => 'form-horizontal stylish' } do |f|
+  = f.error_notification
+
+  %h5 Non-EUD pilot detected. Please fill in all remaming fields:
+  
+  .inputs
+
+  = f.input :name, :label => 'First and Last Names', :input_html => { :class => 'span3' }
+  = f.association :rating, :label => 'Desired Rating', :include_blank => "Please select...", :input_html => { :class => 'span3' }
+  = f.input :vatsimid, :label => 'VATSIM ID', :input_html => { :class => 'span3' }
+  = f.input :email, :label => 'E-mail', :input_html => { :class => 'span3' }
+  = f.association :division, :label => 'Division', :include_blank => "Please select...", :input_html => { :class => 'span3' }
+  = f.input :vacc, :label => 'VACC', :input_html => { :class => 'span3' }
+  = f.association :atc_rating, :label => 'ATC rating', :include_blank => "Please select...", :input_html => { :class => 'span3' }
+  <div style="position: absolute; left: -2000px;"><input type="text" name="website" value="" /></div>
+  
+
+  .actions.center
+    = f.button :submit, "Enroll!", :class => 'btn btn-success btn-large'
+    

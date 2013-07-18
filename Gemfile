@@ -61,3 +61,5 @@ gem "paperclip", "~> 3.4.1"
 gem 'yaml_db'
 gem "redcarpet", "~> 2.3.0"
 
+gem "mysql2", "~> 0.3.11"
+gem "activerecord-mysql-adapter"

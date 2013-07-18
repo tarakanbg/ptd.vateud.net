@@ -1,6 +1,6 @@
 module PilotsHelper
   def upcoming_examinations
-    if @pilot.practical_passed == false && @pilot.examination_id.blank? && Examination.upcoming.where(:rating_id => @pilot.rating_id).count > 0
+    if @pilot.practical_passed == false && @pilot.theory_passed == true && @pilot.examination_id.blank? && Examination.upcoming.where(:rating_id => @pilot.rating_id).count > 0
       render 'upcoming_examinations'
     end
   end

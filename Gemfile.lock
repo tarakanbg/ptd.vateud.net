@@ -41,6 +41,10 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-mysql-adapter (0.0.1)
+      activerecord (>= 3.2.9)
+      activesupport (>= 3.2.9)
+      mysql (>= 2.9.0)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
       activesupport (= 3.2.13)
@@ -99,6 +103,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     multi_json (1.7.6)
+    mysql (2.9.1)
+    mysql2 (0.3.11)
     nested_form (0.3.2)
     newrelic_rpm (3.6.3.111)
     orm_adapter (0.4.0)
@@ -180,12 +186,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-mysql-adapter
   bootstrap-will_paginate (~> 0.0.9)
   cancan (~> 1.6.9)
   coffee-rails (~> 3.2.1)
   devise
   friendly_id (~> 4.0.9)
   jquery-rails
+  mysql2 (~> 0.3.11)
   newrelic_rpm
   paper_trail (~> 2.7.1)
   paperclip (~> 3.4.1)

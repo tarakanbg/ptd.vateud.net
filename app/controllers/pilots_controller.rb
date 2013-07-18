@@ -34,6 +34,14 @@ class PilotsController < ApplicationController
     end
   end
 
+  def new_noneud
+    @pilot = Pilot.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # GET /pilots/1/edit
   def edit
     @pilot = Pilot.find(params[:id])
@@ -44,6 +52,15 @@ class PilotsController < ApplicationController
   def create
     if params[:website].blank?
       @pilot = Pilot.new(params[:pilot])
+      if member = Member.find_by_cid(@pilot.vatsimid)
+        @pilot.name = "#{member.firstname} #{member.lastname}"
+        @pilot.email = member.email
+        @pilot.division_id = 1
+        @pilot.vacc = Subdivision.find_by_code(member.subdivision).name unless member.subdivision.blank?
+        @pilot.atc_rating_id = member.rating
+      else        
+        render action: "new_noneud" and return
+      end
 
       respond_to do |format|
         if @pilot.save
