@@ -105,10 +105,11 @@ class PilotsController < ApplicationController
   end
 
   def statistics
-    @pilots_total = Pilot.all.count
+    @newbie_count = Rating.find(3).pilots.count
+    @pilots_total = Pilot.all.count - @newbie_count
     @theoretical = Pilot.theoretical.count
     @practical = Pilot.practical.count
-    @graduated = Pilot.graduated.count
+    @graduated = Pilot.graduated.count - Rating.find(3).pilots.graduated.count
     @examinations_total = Examination.all.count
     @examiners = Examiner.all.count
     @instructors = Instructor.all.count

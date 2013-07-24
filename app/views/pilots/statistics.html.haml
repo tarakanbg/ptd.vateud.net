@@ -4,7 +4,7 @@
       %h3 VATEUD PTD Statistics
     .row
       .span6.intro  
-        %h4 Trainee Statistics
+        %h4 Trainee Statistics (P1 and above)
         %ul
           %li
             %span.stats_label Total pilots enrolled:
@@ -22,6 +22,9 @@
       .span6.intro  
         %h4 Trainees by rating
         %ul
+          %li
+            %span.stats_label Newbie Training:
+            %span.badge= @newbie_count
           %li
             %span.stats_label P1:
             %span.badge= @p1_count

@@ -33,11 +33,29 @@ class Pilot < ActiveRecord::Base
   validates :name, :length => { :minimum => 4 }
   validates :vatsimid, :length => { :minimum => 6 }
   validates :vatsimid, :numericality => true
+  validate :rating_requirements, :on => :create
+  validate :one_rating_per_pilot, :on => :create
 
   after_create :send_welcome_mail
   after_save :saving_callbacks
   before_save :before_saving_callbacks
 
+  def one_rating_per_pilot
+    if Pilot.active.where(:vatsimid => self.vatsimid).count > 0
+      errors.add(:vatsimid, 'Cannot enroll for more than one rating at a time!')
+    end
+  end
+
+  def rating_requirements
+    if member = Member.find_by_cid(self.vatsimid)
+      ratings = member.humanized_pilot_rating.split(",").each {|r| r.strip!}
+      errors.add(:rating_id, 'You already have at least P1 rating, no need to enroll for Newbie training!') if self.rating_id == 3 && ratings.include?("P1")
+      errors.add(:rating_id, 'You already have this rating, no need to enroll again!') if ratings.include?(self.rating.name)
+      if self.rating.name == "P2" && !ratings.include?("P1")
+        errors.add(:rating_id, 'You are not eligible for this rating yet. Get the pre-requisite ratings first!')
+      end
+    end
+  end
 
   def self.chart_data(start = 1.year.ago)
     pilots = pilots_by_day(start)

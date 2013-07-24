@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711163109) do
+ActiveRecord::Schema.define(:version => 20130724134033) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,19 @@ ActiveRecord::Schema.define(:version => 20130711163109) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "flight_briefings", :force => true do |t|
+    t.string   "name"
+    t.string   "departure"
+    t.string   "destination"
+    t.text     "description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   create_table "instructors", :force => true do |t|

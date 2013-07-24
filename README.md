@@ -222,6 +222,19 @@ Below is an example of a nested form for attaching files to a pilot record:
 
 ![Pilot FIles](http://i.imgur.com/RpK4Nb7.png)
 
+#### Flight briefings
+Flight briefings are intended to be used by pilots in preparation for their trainings and examinations
+and are based on airport pairs. They have attached files containing the birefing itself. They can be added
+and manipulated via the backend and are listed on the frontend as part of the pilot's library.
+
+_The following data is stored and can be manipulated for each record:_
+
+* Name
+* Description
+* Departure
+* Destination
+* File (the physical file itself)
+
 ## Creating "blank" examinations or trainings
 
 Instructors or examiners can create "blank" training or examination sessions (i.e. with no
@@ -229,6 +242,25 @@ pilots included), thus indicating that they'll be available on particular date a
 This availability informaton can be thereafter used by the pilots to selectively join sessions via their
 personal profiles on the frontend (see section "Joining pre-scheduled examinations and training sessions"
 below).
+
+## Enrollment validations
+
+The following attributes are automatically validated upon pilot enrollment. The enrollment is
+rejected and explanatory error messages returned if any of the requirements isn't met:
+
+* Name, email, ATC rating, division, desired rating and VATSIM ID are mandatory fields.
+  For EUD members only the ID and desired rating are required, the rest of the data is pulled 
+  from the VATEUD API
+* Name length must be minimum 4 characters 
+* VATSIM ID must contain digits only
+* VATSIM ID must be at least 6 digits long
+* Rating requirements are validated based on the currently held pilot ratings, i.e. P1 rating is
+  required before enrolling for P2, P2 is required before enrolling for P3, etc. 
+* A pilot can only enroll for one rating at a time. A pilot can not enroll if he has a non-finalized
+  training cycle within the application. This is to prevent pilots enrolling for several ratings at once,
+  or enrolling multiple times for the same rating
+* A pilot can not enroll for a rating that he already holds
+* A pilot can not enroll for newbie training if he already holds any P rating.
 
 ## Email automation
 

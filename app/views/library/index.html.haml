@@ -2,7 +2,7 @@
   .container
     .section_header
       %h3 VATEUD PTD Pilot's Library
-    .row#contact
+    .row#contact.library
       .center
         .span6.contact 
           %p VATEUD PTD P1 Training Presentation  
@@ -14,3 +14,31 @@
           .span4.submit
             .right
               = button_to "Read the document", "/library/p2_presentation", :method => :get
+
+    .row#contact
+      .center
+        .span6.contact 
+          %p Handy Sheet
+          .span4.submit
+            .right
+              = button_to "Read the document", "/library/handy_sheet", :method => :get
+
+    .section_header
+      %h3.smaller Flight Briefings
+      .row#contact.library
+        .span12.contact           
+          %table.briefings
+            %tr
+              %th Name
+              %th Departure
+              %th Destination
+              %th Description
+              %th File
+            - for briefing in @briefings  
+              %tr
+                %td= briefing.name
+                %td= briefing.departure
+                %td= briefing.destination
+                %td= briefing.description
+                %td.submit
+                  .right= button_to "Download", briefing.file.url, :method => :get

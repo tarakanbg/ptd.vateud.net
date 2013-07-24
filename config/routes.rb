@@ -14,6 +14,7 @@ PtdVateudNet::Application.routes.draw do
   get "help" => 'instructors#help'
   get "library/p2_presentation" => 'library#p2_presentation'
   get "library/p1_presentation" => 'library#p1_presentation'
+  get "library/handy_sheet" => 'library#handy_sheet'
   put 'pilots/examination_join/:id' => 'pilots#examination_join'
   put 'pilots/training_join/:id' => 'pilots#training_join'
 

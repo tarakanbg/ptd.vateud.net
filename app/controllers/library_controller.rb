@@ -1,5 +1,6 @@
 class LibraryController < ApplicationController
   def index
+    @briefings = FlightBriefing.all
   end
 
   def p2_presentation
