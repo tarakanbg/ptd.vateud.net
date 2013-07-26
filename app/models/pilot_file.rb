@@ -6,6 +6,8 @@ class PilotFile < ActiveRecord::Base
   belongs_to :pilot, :inverse_of => :pilot_files
   belongs_to :user, :inverse_of => :pilot_files
 
+  validates :name, :file, :pilot_id, :presence => true
+
   attr_accessor :delete_file
   before_validation { self.file.clear if self.delete_file == '1' }
 

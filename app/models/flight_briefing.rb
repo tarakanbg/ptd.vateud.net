@@ -3,6 +3,8 @@ class FlightBriefing < ActiveRecord::Base
 
   has_attached_file :file
 
+  validates :name, :file, :departure, :destination, :presence => true
+
   attr_accessor :delete_file
   before_validation { self.file.clear if self.delete_file == '1' }
 
