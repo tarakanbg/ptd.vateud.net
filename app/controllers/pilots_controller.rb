@@ -58,8 +58,10 @@ class PilotsController < ApplicationController
         @pilot.division_id = 1
         @pilot.vacc = Subdivision.find_by_code(member.subdivision).name unless member.subdivision.blank?
         @pilot.atc_rating_id = member.rating
-      else        
-        render action: "new_noneud" and return
+      else
+        if @pilot.name.blank? && @pilot.email.blank?        
+          render action: "new_noneud" and return
+        end
       end
 
       respond_to do |format|
