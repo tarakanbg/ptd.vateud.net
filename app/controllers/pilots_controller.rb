@@ -69,7 +69,7 @@ class PilotsController < ApplicationController
           format.html { redirect_to @pilot, notice: 'Pilot successfully enrolled!' }
           format.json { render json: @pilot, status: :created, location: @pilot }
         else
-          format.html { render action: "new" }
+          format.html { render action: "new_noneud" }
           format.json { render json: @pilot.errors, status: :unprocessable_entity }
         end
       end    
