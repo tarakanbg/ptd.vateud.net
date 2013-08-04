@@ -45,7 +45,7 @@ class Training < ActiveRecord::Base
 
   def send_mail
     if self.date_changed?
-      PtdMailer.training_mail_pilots(self).deliver
+      PtdMailer.training_mail_pilots(self).deliver if self.pilots.count > 0
       PtdMailer.training_mail_instructor(self).deliver
       PtdMailer.training_mail_admins(self).deliver
     end
