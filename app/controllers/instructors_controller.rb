@@ -2,8 +2,8 @@ class InstructorsController < ApplicationController
   # GET /instructors
   # GET /instructors.json
   def index
-    @instructors = Instructor.all
-    @examiners = Examiner.all
+    @instructors = Instructor.active
+    @examiners = Examiner.active
     @users = User.admins
 
     respond_to do |format|

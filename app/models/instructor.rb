@@ -1,7 +1,8 @@
 class Instructor < ActiveRecord::Base
-  attr_accessible :email, :name, :vatsimid
+  attr_accessible :email, :name, :vatsimid, :active
 
   default_scope order('name ASC')
+  scope :active, where(:active => true)
 
   has_many :pilots
   has_many :trainings
@@ -30,6 +31,7 @@ class Instructor < ActiveRecord::Base
       field :vatsimid do
         label "Vatsim ID"
       end
+      field :active
     end  
 
     edit do
@@ -38,6 +40,7 @@ class Instructor < ActiveRecord::Base
       field :vatsimid do
         label "Vatsim ID"
       end
+      field :active
     end
        
   end

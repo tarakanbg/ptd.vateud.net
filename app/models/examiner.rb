@@ -1,7 +1,8 @@
 class Examiner < ActiveRecord::Base
-  attr_accessible :email, :name, :vatsimid
+  attr_accessible :email, :name, :vatsimid, :active
 
   default_scope order('name ASC')
+  scope :active, where(:active => true)
 
   has_many :examinations
 
@@ -29,6 +30,7 @@ class Examiner < ActiveRecord::Base
       field :vatsimid do
         label "Vatsim ID"
       end
+      field :active
     end  
 
     edit do
@@ -37,6 +39,7 @@ class Examiner < ActiveRecord::Base
       field :vatsimid do
         label "Vatsim ID"
       end
+      field :active
     end
        
   end
