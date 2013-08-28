@@ -84,6 +84,7 @@ _The following data is stored and can be manipulated for each record:_
 * Name
 * VATSIM ID
 * Email
+* Active
 
 _Data available by association, and listed on each examiner's "show" page:_
 
@@ -97,11 +98,16 @@ _The following data is stored and can be manipulated for each record:_
 * Name
 * VATSIM ID
 * Email
+* Active
 
 _Data available by association, and listed on each instructor's "show" page:_
 
 * Pilots
 * Trainings
+
+The active boolean for examiners and isntructors signifies if the person is
+still active in this role. Only active examiners/instructors will be listed
+on the frontend.
 
 #### Pilots
 Pilot (trainee) records are normally created automatically when a trainee submits the
@@ -119,6 +125,7 @@ _The following data is stored and can be manipulated for each record:_
 * ATC rating
 * Instructor
 * Instructor assigned date/time
+* Contacted by email
 * Token issued
 * Token issued date/time
 * Token reissued
@@ -192,6 +199,8 @@ _The following data is stored and can be manipulated for each record:_
 * Destination airport
 * Instructor
 * Participating pilot(s)
+* Description
+* Notes
 
 Note that when creating or editing a training only the trainees who haven't been upgraded yet will be
 available for inclusion.

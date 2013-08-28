@@ -1,5 +1,5 @@
 class Training < ActiveRecord::Base
-  attr_accessible :date, :departure_airport, :destination_airport, :instructor_id, :notes, :rating_id
+  attr_accessible :date, :departure_airport, :destination_airport, :instructor_id, :notes, :rating_id, :description
 
   has_and_belongs_to_many :pilots
   belongs_to :instructor
@@ -60,6 +60,7 @@ class Training < ActiveRecord::Base
       field :instructor
       field :departure_airport
       field :destination_airport      
+      field :description
       # field :pilots
       field :pilots do
         associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
@@ -73,7 +74,20 @@ class Training < ActiveRecord::Base
             # scope = scope.limit(30)
           }
         end
-      end      
+      end  
+
+      field :notes    
+    end
+
+    show do
+      field :date
+      field :rating
+      field :instructor
+      field :departure_airport
+      field :destination_airport      
+      field :description
+      field :pilots
+      field :notes    
     end
 
     list do

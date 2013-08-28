@@ -4,7 +4,8 @@ class Pilot < ActiveRecord::Base
                   :token_issued, :theory_score, :practical_score, :notes, :token_issued_date,
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
                   :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical,
-                  :theory_failed, :theory_failed_date, :practical_failed, :practical_failed_date
+                  :theory_failed, :theory_failed_date, :practical_failed, :practical_failed_date,
+                  :contacted_by_email
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -39,6 +40,10 @@ class Pilot < ActiveRecord::Base
   after_create :send_welcome_mail
   after_save :saving_callbacks
   before_save :before_saving_callbacks
+
+  def newbie?
+    self.rating_id == 3 ? true : false
+  end
 
   def one_rating_per_pilot
     if Pilot.active.where(:vatsimid => self.vatsimid).count > 0
@@ -268,6 +273,7 @@ class Pilot < ActiveRecord::Base
       end
       field :atc_rating
       field :trainings
+      field :contacted_by_email
       field :token_issued
       field :token_issued_date
       field :token_reissued
@@ -297,7 +303,8 @@ class Pilot < ActiveRecord::Base
       field :atc_rating
       field :instructor      
       field :trainings
-      field :token_issued     
+      field :contacted_by_email
+      field :token_issued 
       field :theory_failed
       field :token_reissued      
       field :theory_passed      
@@ -344,6 +351,7 @@ class Pilot < ActiveRecord::Base
       field :atc_rating
       field :instructor
       field :instructor_assigned_date
+      field :contacted_by_email
       field :token_issued
       field :token_issued_date
       field :theory_failed

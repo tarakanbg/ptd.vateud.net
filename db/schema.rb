@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823140109) do
+ActiveRecord::Schema.define(:version => 20130828123845) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20130823140109) do
     t.boolean  "practical_failed",         :default => false
     t.datetime "theory_failed_date"
     t.datetime "practical_failed_date"
+    t.boolean  "contacted_by_email",       :default => false
   end
 
   add_index "pilots", ["slug"], :name => "index_pilots_on_slug", :unique => true
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20130823140109) do
     t.datetime "updated_at",          :null => false
     t.text     "notes"
     t.integer  "rating_id"
+    t.text     "description"
   end
 
   create_table "users", :force => true do |t|
