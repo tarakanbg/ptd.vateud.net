@@ -8,6 +8,7 @@
           %table.pilots
             %tr
               %th.date Date
+              %th Rating
               %th.subject Examiner
               %th Origin
               %th Destination
@@ -15,6 +16,7 @@
             - @examinations.each do |examination|
               %tr
                 %td= examination.date
+                %td= examination.rating.name
                 %td= examination.examiner.name if examination.examiner
                 %td= examination.departure_airport if examination.departure_airport
                 %td= examination.destination_airport if examination.destination_airport

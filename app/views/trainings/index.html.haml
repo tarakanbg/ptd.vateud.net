@@ -8,6 +8,7 @@
           %table.pilots
             %tr
               %th.date Date
+              %th Rating
               %th.subject Instructor
               %th Origin
               %th Destination
@@ -15,6 +16,7 @@
             - @trainings.each do |training|
               %tr
                 %td= training.date
+                %td= training.rating.name
                 %td= training.instructor.name
                 %td= training.departure_airport
                 %td= training.destination_airport
