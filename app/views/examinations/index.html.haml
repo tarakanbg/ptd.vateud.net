@@ -16,7 +16,7 @@
             - @examinations.each do |examination|
               %tr
                 %td= examination.date
-                %td= examination.rating.name
+                %td= examination.rating.name if examination.rating
                 %td= examination.examiner.name if examination.examiner
                 %td= examination.departure_airport if examination.departure_airport
                 %td= examination.destination_airport if examination.destination_airport

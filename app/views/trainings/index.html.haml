@@ -16,7 +16,7 @@
             - @trainings.each do |training|
               %tr
                 %td= training.date
-                %td= training.rating.name
+                %td= training.rating.name if training.rating
                 %td= training.instructor.name
                 %td= training.departure_airport
                 %td= training.destination_airport
