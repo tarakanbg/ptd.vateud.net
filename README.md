@@ -325,7 +325,25 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to the pilot's instructor* informing him that his trainee
   has passed the test and about his mark
 
+### Upon theory exam results expiration
+
+* When 180 days have passed after a successful theory exam and the pilot still hasn't taken his
+  practical and hasn't been upgraded to his desired rating, ATSimtest expires the exam and the
+  pilot has to re-sit it
+* A notification email is sent to the pilot, advising him that the theory exam has expired and he
+  should request a new exam token
+* A notification email is sent to the admins, advising them that the theory exam has expired and listing
+  the affected pilot details
+
+### Upon theory exam token reissue request
+
+* After the pilot has used the button in their public profile to request a new theory exam token:
+* A notification email is sent to the pilot, advising him that the request has been successfully sent to
+  the PTD staff
+* A notification email is sent to the admins, advising them of the reissue request, so that they can process it
+
 ### Upon marking the pilot as ready for pracitcal
+
 * When a pilot's record is edited to mark him as "Ready for practical exam" (either by his Instructor
   or by an admin):
 * A notification email is sent *to all examiners* informing them there's a new pilot waiting for
@@ -334,6 +352,7 @@ Emails are automatically being sent by the app in the following cases to the fol
   the date and time of the practical examination.  
 
 ### Upon scheduling an examination
+
 * When a new examination record is created and/or when an examination date gets changed:
 * A notification email is sent *to the examiner* assigned for the examination, providing
   the necessary details: date, time, arrival and departure airports and participating pilot(s)
@@ -344,6 +363,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A notification email is sent *to all admins* with the aforementioned details
 
 ### Upon joining a pre-scheduled examination
+
 * When a pilot joins a pre-scheduled examination via his personal profile on the frontend
 * A notification email is sent *to the examiner* assigned for the examination, providing
   the details of the newly joined pilot
@@ -375,7 +395,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training up to 30 different emails may be sent by the
+__Overall, over the life-cycle of a single pilot training up to 34 different emails may be sent by the
 application to different recipients__
 
 
@@ -449,6 +469,35 @@ availability informaton can be thereafter used by the pilots to selectively join
 When a pilot joins a session this way, both parties (the pilot and the affected examiner or
 instructor) are notified by email (see __Email Automation__).  
 ![ProActivejoins](http://i.imgur.com/1vxBGXT.png)
+
+### Handling expired theory tests
+
+After 180 days have passed after a successful theory exam and the pilot still hasn't taken his
+practical and hasn't been upgraded to his desired rating, ATSimtest expires the exam and the
+pilot has to re-sit it.
+
+This expiration is handled automatically by the PTD application. It checks
+daily for pilots who have passed the theory 180 days earlier and haven't been yet upgraded
+and in case it finds any matches, it automatically flags the pilot with the "theory expired" flag.
+This resets the "theory passed" and "ready for practical" flags to "false" (removes the checkmarks),
+and also resets the theory passed date and the "token reissued" flag and date (if previously set).
+The application then automatically sends an email to the pilot, 
+informing him of the theory expiration and andvising him how to request a token reissue. It also sends
+an email to the PTD app adminstrators, informing them a pilot's results have expired.
+
+The process of requesting a new token is straightforward: for pilots with expired theory results there's 
+a separate button in their PTD profiles labelled "Request token reissue". Clicking that button
+sends notifications to both the pilot, confirming the succesfull request, and to the ptd admins, requesting
+a token reissue.
+
+![TokenReissue](http://i.imgur.com/6rOdPXs.png)
+
+For the amdins: after reissuing the token from ATSimtest, they must mark the "token reissued"
+field in the pilot profiles, which will trigger a notification to the pilot and will re-start the
+training/examination cycle.
+
+Of course, there's also the possibility of manually overriding the automation and ticking the
+"theory expired" checkbox in their profiles if needed.
 
 ### Frontend data tables
 Abridged data listings are published on the frontend in reverse chronological order for the

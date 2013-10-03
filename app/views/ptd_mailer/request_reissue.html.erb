@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear VATEUD PTD Administrator,</h1>
+    <p>
+      A pilot has requested a theory exam token reissue for <%= @pilot.rating.name %> rating!<br/>
+      
+      Pilot details:<br /><br />
+
+      Name: <%= @pilot.name %><br/>
+      VATSIM ID: <%= @pilot.vatsimid %><br/>
+      Email: <%= @pilot.email %><br/>
+      Division: <%= @pilot.division.name %><br/>
+      vACC: <%= @pilot.vacc %><br/>
+      ATC rating: <%= @pilot.atc_rating.name %><br/>
+    </p>
+    <p>
+      After reissuing the token in ATSimTest, you can manage his record and
+      mark the "token reissued" checkbox in the pilot's profile
+      at <a href="http://ptd.vateud.net/admin">ptd.vateud.net/admin</a>. <br />
+      The pilot will be notified when the token is reissued.
+    </p>
+    <p>Have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

@@ -17,6 +17,7 @@ PtdVateudNet::Application.routes.draw do
   get "library/handy_sheet" => 'library#handy_sheet'
   put 'pilots/examination_join/:id' => 'pilots#examination_join'
   put 'pilots/training_join/:id' => 'pilots#training_join'
+  put 'pilots/request_reissue/:id' => 'pilots#request_reissue'
 
 
   # The priority is based upon order of creation:

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p><em>This is an automated email message, please do not reply!</em></p>
+    
+    <h1>Dear VATEUD PTD Administrator,</h1>
+    <p>
+      A pilot's <%= @pilot.rating.name %> rating theory exam has just expired!<br/>
+      
+      Pilot details:<br /><br />
+
+      Name: <%= @pilot.name %><br/>
+      VATSIM ID: <%= @pilot.vatsimid %><br/>
+      Email: <%= @pilot.email %><br/>
+      Division: <%= @pilot.division.name %><br/>
+      vACC: <%= @pilot.vacc %><br/>
+      ATC rating: <%= @pilot.atc_rating.name %><br/>
+    </p>
+    <p>
+      The pilot has been notified about the expiration and advised to request
+      a theory exam token re-issue. Once he does that, you'll receive a notification.
+      Use the "token reissued" checkbox in the pilot profile to notify the pilot of the re-issue, 
+      so that he can continue with his rating training and examinations.
+      <br /><br />
+      You can manage his record
+      at <a href="http://ptd.vateud.net/admin">ptd.vateud.net/admin</a>
+    </p>
+    <p>Have a great day!</p>
+    <p><em><strong>VATEUD Pilot Training Department Team</strong></em></p>
+  </body>
+</html>

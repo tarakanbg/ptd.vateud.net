@@ -186,5 +186,25 @@ class PtdMailer < ActionMailer::Base
     mail(:to => User.admin_email_recipients, :subject => "New training scheduled")
   end
 
+  def theory_expired_mail_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "VATEUD PTD Theory Test Expired")
+  end
+
+  def theory_expired_mail_admins(pilot)
+    @pilot = pilot
+    mail(:to => User.admin_email_recipients, :subject => "Pilot #{@pilot.name} theory exam expired")
+  end
+
+  def request_reissue(pilot)
+    @pilot = pilot
+    mail(:to => User.admin_email_recipients, :subject => "Theory exam token reissue request")
+  end
+
+  def request_reissue_pilot(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "Theory exam token reissue request sent")
+  end
+
 end
 

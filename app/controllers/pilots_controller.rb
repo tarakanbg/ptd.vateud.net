@@ -126,8 +126,8 @@ class PilotsController < ApplicationController
     # examination_id = params[:examination_id]
     @pilot.examination_id = params[:examination_id]
     @pilot.save
-    PtdMailer.examination_join_mail_pilot(@pilot, params[:examination_id]).deliver
-    PtdMailer.examination_join_mail_examiner(@pilot, params[:examination_id]).deliver
+    PtdMailer.delay.examination_join_mail_pilot(@pilot, params[:examination_id])
+    PtdMailer.delay.examination_join_mail_examiner(@pilot, params[:examination_id])
     redirect_to :back
   end
 
@@ -135,8 +135,15 @@ class PilotsController < ApplicationController
     @pilot = Pilot.find(params[:id])
     @training = Training.find(params[:training_id])
     @training.pilots << @pilot
-    PtdMailer.training_join_mail_pilot(@pilot, @training).deliver
-    PtdMailer.training_join_mail_instructor(@pilot, @training).deliver
+    PtdMailer.delay.training_join_mail_pilot(@pilot, @training)
+    PtdMailer.delay.training_join_mail_instructor(@pilot, @training)
+    redirect_to :back
+  end
+
+  def request_reissue
+    @pilot = Pilot.find(params[:id])
+    PtdMailer.delay.request_reissue(@pilot)
+    PtdMailer.delay.request_reissue_pilot(@pilot)
     redirect_to :back
   end
 end

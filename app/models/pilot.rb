@@ -5,7 +5,7 @@ class Pilot < ActiveRecord::Base
                   :theory_passed_date, :practical_passed_date, :upgraded_date, :instructor_assigned_date,
                   :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical,
                   :theory_failed, :theory_failed_date, :practical_failed, :practical_failed_date,
-                  :contacted_by_email
+                  :contacted_by_email, :theory_expired
   
   extend FriendlyId
   friendly_id :url, use: :slugged
@@ -110,19 +110,31 @@ class Pilot < ActiveRecord::Base
     end
   end
 
+  def self.process_expired_theory
+    pilots = unscoped.where(upgraded: false)
+    pilots = pilots.where("theory_passed_date < ?", 180.days.ago)
+    if pilots.count > 0
+      for pilot in pilots
+        pilot.theory_expired = true
+        pilot.save
+      end
+    end
+  end
+
   def url
     Digest::SHA1.hexdigest self.name+self.created_at.to_s+self.vatsimid.to_s+"rgy345sjk"
   end
 
   def send_welcome_mail
-    PtdMailer.welcome_mail_pilot(self).deliver
-    PtdMailer.welcome_mail_users(self).deliver
+    PtdMailer.delay.welcome_mail_pilot(self)
+    PtdMailer.delay.welcome_mail_users(self)
   end
 
   def saving_callbacks
     send_instructor_emails 
     send_token_emails
     send_theory_emails
+    send_theory_expired_emails
     send_practical_emails
     send_upgraded_emails
     send_examination_feedback
@@ -132,68 +144,93 @@ class Pilot < ActiveRecord::Base
 
   def before_saving_callbacks
     save_chronography
+    theory_expired_changes
+    # token_issued_changes
   end
 
   def send_instructor_emails
     if self.instructor_id_changed? && self.instructor
-      PtdMailer.instructor_mail_pilot(self).deliver
-      PtdMailer.instructor_mail_instructor(self).deliver
+      PtdMailer.delay.instructor_mail_pilot(self)
+      PtdMailer.delay.instructor_mail_instructor(self)
     end    
   end
 
   def send_token_emails
     if self.token_issued_changed? && self.token_issued?
-      PtdMailer.token_mail_pilot(self).deliver
+      PtdMailer.delay.token_mail_pilot(self)
     end  
     if self.token_reissued_changed? && self.token_reissued?
-      PtdMailer.token_mail_pilot(self).deliver
+      PtdMailer.delay.token_mail_pilot(self)
     end   
   end
 
+  # def token_issued_changes
+  #   if (self.token_issued_changed? && self.token_issued?) or (self.token_reissued_changed? && self.token_reissued?)
+  #     self.theory_expired = false
+  #   end      
+  # end
+
   def send_theory_emails
     if self.theory_passed_changed? && self.theory_passed?
-      PtdMailer.theory_mail_pilot(self).deliver
-      PtdMailer.theory_mail_instructor(self).deliver
+      PtdMailer.delay.theory_mail_pilot(self)
+      PtdMailer.delay.theory_mail_instructor(self)
     end
   end
 
   def send_practical_emails
     if self.practical_passed_changed? && self.practical_passed?
-      PtdMailer.practical_mail_pilot(self).deliver
-      PtdMailer.practical_mail_instructor(self).deliver
-      PtdMailer.practical_mail_admin(self).deliver
+      PtdMailer.delay.practical_mail_pilot(self)
+      PtdMailer.delay.practical_mail_instructor(self)
+      PtdMailer.delay.practical_mail_admin(self)
     end
   end
 
   def send_failure_emails
     if self.theory_failed_changed? && self.theory_failed?      
-      PtdMailer.theory_fail_mail_instructors(self).deliver
-      PtdMailer.theory_fail_mail_pilot(self).deliver
+      PtdMailer.delay.theory_fail_mail_instructors(self)
+      PtdMailer.delay.theory_fail_mail_pilot(self)
     end
     if self.practical_failed_changed? && self.practical_failed?      
-      PtdMailer.practical_fail_mail_instructors(self).deliver
-      PtdMailer.practical_fail_mail_pilot(self).deliver
+      PtdMailer.delay.practical_fail_mail_instructors(self)
+      PtdMailer.delay.practical_fail_mail_pilot(self)
     end
   end
 
   def send_upgraded_emails
     if self.upgraded_changed? && self.upgraded?
-      PtdMailer.upgraded_mail_pilot(self).deliver
+      PtdMailer.delay.upgraded_mail_pilot(self)
     end 
   end
 
   def send_ready_for_practical_emails
     if self.ready_for_practical_changed? && self.ready_for_practical?
-      PtdMailer.ready_for_practical_mail_examiners(self).deliver
-      PtdMailer.ready_for_practical_mail_pilot(self).deliver
+      PtdMailer.delay.ready_for_practical_mail_examiners(self)
+      PtdMailer.delay.ready_for_practical_mail_pilot(self)
+    end 
+  end
+
+  def send_theory_expired_emails
+    if self.theory_expired_changed? && self.theory_expired?      
+      PtdMailer.delay.theory_expired_mail_admins(self)
+      PtdMailer.delay.theory_expired_mail_pilot(self)
+    end 
+  end
+
+  def theory_expired_changes
+    if self.theory_expired_changed? && self.theory_expired?     
+      self.ready_for_practical = false
+      self.token_reissued = false
+      self.token_reissued_date = nil
+      self.theory_passed = false
+      self.theory_score = nil     
     end 
   end
 
   def send_examination_feedback
     if self.examination_feedback_changed?
       unless self.examination_feedback.blank?
-        PtdMailer.feedback_mail_pilot(self).deliver
-        PtdMailer.feedback_mail_instructor(self).deliver
+        PtdMailer.delay.feedback_mail_pilot(self)
+        PtdMailer.delay.feedback_mail_instructor(self)
       end
     end
   end
@@ -201,11 +238,13 @@ class Pilot < ActiveRecord::Base
   def save_chronography
     if self.token_issued_changed? && self.token_issued?
       self.token_issued_date = Time.now
+      self.theory_expired = false
     elsif self.token_issued_changed?
       self.token_issued_date = nil
     end  
     if self.token_reissued_changed? && self.token_reissued?
       self.token_reissued_date = Time.now
+      self.theory_expired = false
     elsif self.token_reissued_changed?
       self.token_reissued_date = nil
     end 
@@ -281,6 +320,7 @@ class Pilot < ActiveRecord::Base
       field :theory_passed_date
       field :theory_score
       field :ready_for_practical
+      field :theory_expired
       field :examination
       field :practical_passed
       field :practical_passed_date
@@ -310,6 +350,7 @@ class Pilot < ActiveRecord::Base
       field :theory_passed      
       field :theory_score
       field :ready_for_practical
+      field :theory_expired
       field :examination do
         # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
         associated_collection_scope do
@@ -362,6 +403,7 @@ class Pilot < ActiveRecord::Base
       field :theory_passed_date
       field :theory_score
       field :ready_for_practical
+      field :theory_expired
       field :examination
       field :practical_failed
       field :practical_failed_date

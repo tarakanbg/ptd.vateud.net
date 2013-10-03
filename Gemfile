@@ -63,3 +63,7 @@ gem "redcarpet", "~> 2.3.0"
 
 gem "mysql2", "~> 0.3.11"
 gem "activerecord-mysql-adapter"
+
+gem "whenever", "~> 0.8.4"
+
+gem "sidekiq", "~> 2.15.0"

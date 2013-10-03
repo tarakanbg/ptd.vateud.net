@@ -111,7 +111,13 @@
         - if @pilot.upgraded?
           %p
             %label.string.required.control-label Upgraded:
-            %span.record-details #{@pilot.upgraded_date}                  
+            %span.record-details #{@pilot.upgraded_date} 
+
+        -if @pilot.theory_expired?
+          %p
+            %label.string.required.control-label Theory test expired:
+            <br />
+            = link_to raw('<i class="icon-forward icon-white"></i> Request Theory Exam Token Reissue'), {:action => :request_reissue, :id => @pilot.id}, :method => :put, :title => "Request Token Reissue", :class => "btn btn-info"
 
     
     = upcoming_examinations

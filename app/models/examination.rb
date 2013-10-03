@@ -51,10 +51,10 @@ class Examination < ActiveRecord::Base
 
   def send_mail
     if self.date_changed?
-      PtdMailer.examination_mail_pilots(self).deliver if self.pilots.count > 0
-      PtdMailer.examination_mail_instructors(self).deliver if self.pilots.count > 0
-      PtdMailer.examination_mail_examiner(self).deliver
-      PtdMailer.examination_mail_admins(self).deliver
+      PtdMailer.delay.examination_mail_pilots(self) if self.pilots.count > 0
+      PtdMailer.delay.examination_mail_instructors(self) if self.pilots.count > 0
+      PtdMailer.delay.examination_mail_examiner(self)
+      PtdMailer.delay.examination_mail_admins(self)
     end
   end
   
