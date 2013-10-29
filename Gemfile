@@ -67,3 +67,4 @@ gem "activerecord-mysql-adapter"
 gem "whenever", "~> 0.8.4"
 
 gem "sidekiq", "~> 2.15.0"
+
