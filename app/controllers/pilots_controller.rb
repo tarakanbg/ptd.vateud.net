@@ -118,6 +118,7 @@ class PilotsController < ApplicationController
     @trainings = Training.all.count
     @p1_count = Rating.find_by_name("P1").pilots.count
     @p2_count = Rating.find_by_name("P2").pilots.count
+    @p4_count = Rating.find_by_name("P4").pilots.count
     @divisions = Division.all
   end
 
