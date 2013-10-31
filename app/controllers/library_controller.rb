@@ -8,4 +8,7 @@ class LibraryController < ApplicationController
 
   def p1_presentation
   end
+
+  def p4_presentation
+  end
 end

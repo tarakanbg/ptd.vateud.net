@@ -12,6 +12,7 @@ PtdVateudNet::Application.routes.draw do
   get "statistics" => 'pilots#statistics'
   get "library" => 'library#index'
   get "help" => 'instructors#help'
+  get "library/p4_presentation" => 'library#p4_presentation'
   get "library/p2_presentation" => 'library#p2_presentation'
   get "library/p1_presentation" => 'library#p1_presentation'
   get "library/handy_sheet" => 'library#handy_sheet'

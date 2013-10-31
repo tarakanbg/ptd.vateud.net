@@ -59,6 +59,9 @@ class Pilot < ActiveRecord::Base
       if self.rating.name == "P2" && !ratings.include?("P1")
         errors.add(:rating_id, 'You are not eligible for this rating yet. Get the pre-requisite ratings first!')
       end
+      if self.rating.name == "P4" && !ratings.include?("P2")
+        errors.add(:rating_id, 'You are not eligible for this rating yet. Get the pre-requisite ratings first!')
+      end
     end
   end
 
