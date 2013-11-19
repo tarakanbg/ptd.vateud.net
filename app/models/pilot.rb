@@ -21,14 +21,21 @@ class Pilot < ActiveRecord::Base
 
   belongs_to :atc_rating
   belongs_to :division
-  belongs_to :examination, :inverse_of => :pilots
+  # belongs_to :examination, :inverse_of => :pilots
   has_and_belongs_to_many :trainings
+  has_and_belongs_to_many :examinations
   belongs_to :instructor
   belongs_to :rating
   has_many :pilot_files, :inverse_of => :pilot
 
   accepts_nested_attributes_for :pilot_files, :allow_destroy => true
   attr_accessible :pilot_files_attributes, :allow_destroy => true
+
+  accepts_nested_attributes_for :examinations, :allow_destroy => true
+  attr_accessible :examinations_attributes, :allow_destroy => true
+
+  accepts_nested_attributes_for :trainings, :allow_destroy => true
+  attr_accessible :trainings_attributes, :allow_destroy => true
 
   validates :name, :email, :atc_rating_id, :division_id, :rating_id, :vatsimid, :presence => true
   validates :name, :length => { :minimum => 4 }
@@ -324,7 +331,7 @@ class Pilot < ActiveRecord::Base
       field :theory_score
       field :ready_for_practical
       field :theory_expired
-      field :examination
+      # field :examinations
       field :practical_passed
       field :practical_passed_date
       field :practical_score
@@ -354,24 +361,25 @@ class Pilot < ActiveRecord::Base
       field :theory_score
       field :ready_for_practical
       field :theory_expired
-      field :examination do
-        # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
-        associated_collection_scope do
-          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
-          pilot = bindings[:object]
-          Proc.new { |scope|
-            # scoping all Players currently, let's limit them to the team's league
-            # Be sure to limit if there are a lot of Players and order them by position
-            if pilot.examination_id.nil?
-              scope = scope.where("date > ?", Time.now)
-              scope = scope.limit(30)
-            else
-              scope = scope.where("date > ? OR id = ?", Time.now, pilot.examination_id)
-              scope = scope.limit(30)
-            end
-          }
-        end
-      end   
+      field :examinations
+      # field :examination do
+      #   # associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+      #   associated_collection_scope do
+      #     # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+      #     pilot = bindings[:object]
+      #     Proc.new { |scope|
+      #       # scoping all Players currently, let's limit them to the team's league
+      #       # Be sure to limit if there are a lot of Players and order them by position
+      #       if pilot.examination_id.nil?
+      #         scope = scope.where("date > ?", Time.now)
+      #         scope = scope.limit(30)
+      #       else
+      #         scope = scope.where("date > ? OR id = ?", Time.now, pilot.examination_id)
+      #         scope = scope.limit(30)
+      #       end
+      #     }
+      #   end
+      # end   
       field :practical_failed 
       field :practical_passed      
       field :practical_score
@@ -396,6 +404,7 @@ class Pilot < ActiveRecord::Base
       field :instructor
       field :instructor_assigned_date
       field :contacted_by_email
+      field :trainings
       field :token_issued
       field :token_issued_date
       field :theory_failed
@@ -407,7 +416,7 @@ class Pilot < ActiveRecord::Base
       field :theory_score
       field :ready_for_practical
       field :theory_expired
-      field :examination
+      field :examinations
       field :practical_failed
       field :practical_failed_date
       field :practical_passed

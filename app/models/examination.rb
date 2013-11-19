@@ -1,7 +1,8 @@
 class Examination < ActiveRecord::Base
   attr_accessible :date, :departure_airport, :destination_airport, :examiner_id, :rating_id
 
-  has_many :pilots, :inverse_of => :examination
+  # has_many :pilots, :inverse_of => :examination
+  has_and_belongs_to_many :pilots
   belongs_to :examiner
   belongs_to :rating
 
