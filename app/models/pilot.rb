@@ -118,6 +118,7 @@ class Pilot < ActiveRecord::Base
     pilots.each_with_object({}) do |pilot, counts|
       counts[pilot.created_at.to_date] = pilot.count
     end
+    # Pilot.unscoped.group_by { |m| m.created_at.beginning_of_month }
   end
 
   def self.process_expired_theory

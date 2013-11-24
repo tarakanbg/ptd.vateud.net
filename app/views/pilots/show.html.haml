@@ -32,9 +32,10 @@
             %label.string.required.control-label VACC:
             %span.record-details #{@pilot.vacc}
           
-        %p
-          %label.string.required.control-label ATC rating:
-          %span.record-details #{@pilot.atc_rating.name}  
+        - if @pilot.atc_rating
+          %p
+            %label.string.required.control-label ATC rating:
+            %span.record-details #{@pilot.atc_rating.name}  
 
         %p
           %label.string.required.control-label Date enrolled:
@@ -80,13 +81,13 @@
             %label.string.required.control-label Theory Score:
             %span.record-details #{@pilot.theory_score}  
 
-        - if @pilot.examination
+        - if @pilot.examinations.count > 0
           %p
             %label.string.required.control-label Practical exam:
-            %span.record-details #{@pilot.examination.date}, #{@pilot.examination.departure_airport} - #{@pilot.examination.destination_airport}
+            %span.record-details #{@pilot.examinations.last.date}, #{@pilot.examinations.last.departure_airport} - #{@pilot.examinations.last.destination_airport}
           %p
             %label.string.required.control-label Examiner:
-            %span.record-details #{@pilot.examination.examiner.name}, ID #{@pilot.examination.examiner.vatsimid}
+            %span.record-details #{@pilot.examinations.last.examiner.name}, ID #{@pilot.examinations.last.examiner.vatsimid}
 
         - if @pilot.practical_failed?
           %p
