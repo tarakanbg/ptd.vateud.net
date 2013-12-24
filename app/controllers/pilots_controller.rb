@@ -15,6 +15,7 @@ class PilotsController < ApplicationController
   def show
     @pilot = Pilot.find(params[:id])
     @examinations = Examination.upcoming.where(:rating_id => @pilot.rating_id)
+    @examinations.each {|exam| @examinations.delete(exam) if @pilot.rating.name != "P1" && exam.pilots.count > 0}      
     @trainings = Training.upcoming.where(:rating_id => @pilot.rating_id)
 
     respond_to do |format|
