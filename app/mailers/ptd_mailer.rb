@@ -12,6 +12,16 @@ class PtdMailer < ActionMailer::Base
     mail(:to => User.admin_email_recipients, :subject => "New pilot enrolled in the VATEUD PTD program")
   end
 
+  def welcome_mail_noneud(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "Important notice to non-VATEUD trainees")
+  end
+
+  def no_vacc_mail(pilot)
+    @pilot = pilot
+    mail(:to => @pilot.email, :subject => "Notice regarding vACC assignment")
+  end
+
   def instructor_mail_pilot(pilot)
     @pilot = pilot
     mail(:to => @pilot.email, :subject => "VATEUD PTD Instructor assigned")

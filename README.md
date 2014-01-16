@@ -1,6 +1,6 @@
 # A technical description of the VATEUD PTD application
 
-*by __Svilen Vassilev__, VATEUD7, Web Services Director*
+*by __Svilen Vassilev__*
 
 ## Introduction
 The VATEUD PTD application consists of a public frontend, available on [ptd.vateud.net](http://ptd.vateud.net/) and
@@ -282,6 +282,10 @@ Emails are automatically being sent by the app in the following cases to the fol
 * A welcome email is sent *to the pilot* with his record details and general training instructions
 * A notification email is sent *to all admin users* of the app, advising that a new pilot
   has enrolled for training and listing the pilot's details
+* An additional notification is sent to non-VATEUD pilots, members of divisions not included in ATSimtest,
+  explaining the logistics of taking a theoretical examination outside ATSimtest
+* Additional notification is sent to EUD trainees without a vACC, explaining the nonsense requirement
+  of having a vACC assignment in order to proceed with pilot training
 
 ### Upon assigning an instructor to a pilot
 * When a pilot record is edited to *assign/reassign an instructor* to a pilot:
@@ -395,7 +399,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 * When a pilot's record is edited to mark him as an "upgraded"
 * A notification email is sent *to the pilot* informing him of the rating upgrade
 
-__Overall, over the life-cycle of a single pilot training up to 34 different emails may be sent by the
+__Overall, over the life-cycle of a single pilot training up to 36 different emails may be sent by the
 application to different recipients__
 
 
