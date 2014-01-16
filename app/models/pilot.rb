@@ -139,22 +139,22 @@ class Pilot < ActiveRecord::Base
   def send_welcome_mail
     PtdMailer.delay.welcome_mail_pilot(self)
     PtdMailer.delay.welcome_mail_users(self)
-    Pilot.additional_emails_to_noneud_members(self)
-    Pilot.additional_email_to_eud_pilots_without_vacc(self)
-  end
-
-  def self.additional_emails_to_noneud_members(pilot)
+    # Pilot.additional_emails_to_noneud_members(self)
+    # Pilot.additional_email_to_eud_pilots_without_vacc(self)
     foreign_divisions = ["VATUSA", "VATWA", "VATOCE", "VATSUR", "VATUK"]
-    if foreign_divisions.include?(pilot.division.name.upcase)
-      PtdMailer.delay.welcome_mail_noneud(pilot)
+    if foreign_divisions.include?(self.division.name.upcase)
+      PtdMailer.delay.welcome_mail_noneud(self)
+    end
+    if self.division.name.upcase == "VATEUD" && self.vacc.blank?
+      PtdMailer.delay.no_vacc_mail(self)
     end
   end
 
-  def self.additional_email_to_eud_pilots_without_vacc(pilot)
-    if pilot.division.name.upcase == "VATEUD" && pilot.vacc.blank?
-      PtdMailer.delay.no_vacc_mail(pilot)
-    end
-  end
+  # def self.additional_emails_to_noneud_members(pilot)
+  # end
+
+  # def self.additional_email_to_eud_pilots_without_vacc(pilot)
+  # end
 
   def saving_callbacks
     send_instructor_emails 
