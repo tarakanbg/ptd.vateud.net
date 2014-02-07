@@ -1,6 +1,5 @@
 class InstructorsController < ApplicationController
-  # GET /instructors
-  # GET /instructors.json
+
   def index
     @instructors = Instructor.active
     @examiners = Examiner.active

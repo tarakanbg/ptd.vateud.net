@@ -3,7 +3,7 @@
     .section_header
       %h3 VATEUD PTD Trainees
     .row
-      .span12.intro   
+      .span12.intro
         #pilots-listing
           %table.pilots
             %tr
@@ -21,8 +21,8 @@
                 %td= pilot.rating.name
                 %td= pilot.division.name
                 %td= pilot.vacc
-                %td= pilot.atc_rating.name
+                %td= pilot.atc_rating.name if pilot.atc_rating
                 %td= pilot.created_at
-        
+
         = will_paginate @pilots
- 
+
