@@ -522,4 +522,4 @@ pilot's that have passed practical exam, upgraded pilots, total numbers of exami
 
 Copyright © 2014 [Svilen Vassilev](http://svilen.rubystudio.net)
 
-Released under the [GNU GPL LICENSE](https://github.com/tarakanbg/api.vateud.net/blob/master/LICENSE)
+Released under the [GNU GPL LICENSE](https://github.com/tarakanbg/ptd.vateud.net/blob/master/LICENSE)
