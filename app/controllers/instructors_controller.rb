@@ -12,7 +12,7 @@ class InstructorsController < ApplicationController
 
   def help
     m = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    @content = m.render(File.open(Rails.root + "README.md", 'r').read)
+    @content = m.render(File.open(Rails.root + "HELP.md", 'r').read)
     # render :text => content
   end
 end

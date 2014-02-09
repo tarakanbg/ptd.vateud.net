@@ -1,0 +1,32 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: change-me
+  pool: 5
+  host: localhost
+  username: change-me
+  password: change-me
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: change-me
+  pool: 5
+  host: localhost
+  username: change-me
+  password: change-me
+
+api:
+  adapter: postgresql
+  encoding: unicode
+  database: change-me
+  pool: 5
+  host: localhost
+  username: change-me
+  password: change-me

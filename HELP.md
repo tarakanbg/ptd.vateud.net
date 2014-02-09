@@ -1,9 +1,6 @@
-# VATEUD PTD app
-
-__Live version__ at: [http://ptd.vateud.net](http://ptd.vateud.net)
-
-
 # A technical description of the VATEUD PTD application
+
+*by __Svilen Vassilev__*
 
 ## Introduction
 The VATEUD PTD application consists of a public frontend, available on [ptd.vateud.net](http://ptd.vateud.net/) and
@@ -517,9 +514,3 @@ The "Statistics" page shows activity charts (monthly and yearly) depicting the d
 examinations and trainings. Some numbers are also published: total pilots enrolled, pilots that have passed theory,
 pilot's that have passed practical exam, upgraded pilots, total numbers of examinations and tranings, etc.
 ![Stats](http://i.imgur.com/oDK8IBX.png)
-
-## Credits
-
-Copyright © 2014 [Svilen Vassilev](http://svilen.rubystudio.net)
-
-Released under the [GNU GPL LICENSE](https://github.com/tarakanbg/api.vateud.net/blob/master/LICENSE)
