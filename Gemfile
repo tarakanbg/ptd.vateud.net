@@ -22,7 +22,7 @@ gem "thin", "~> 1.5.1", :group => :development
 
 gem "pg", "~> 0.17.0"
 
-gem "recaptcha", :require => "recaptcha/rails"
+# gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'newrelic_rpm'
 
