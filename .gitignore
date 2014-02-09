@@ -18,3 +18,4 @@
 /config/database.yml
 /.idea
 /config/initializers/setup_mail.rb
+/config/initializers/mail.rb
