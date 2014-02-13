@@ -40,7 +40,7 @@ gem "redcarpet", "~> 2.3.0"
 
 gem "whenever", "~> 0.8.4"
 
-gem "sidekiq", "~> 2.15.0"
+gem "sidekiq", "~> 2.17.4"
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'
