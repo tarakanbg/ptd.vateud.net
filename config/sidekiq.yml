@@ -1,8 +1,0 @@
-# Sample configuration file for Sidekiq.
-# Options here can still be overridden by cmd line args.
-#   sidekiq -C config.yml
----
-:verbose: false
-:concurrency:  2
-:db: 0
-:cache_db: 2
