@@ -331,7 +331,7 @@ Emails are automatically being sent by the app in the following cases to the fol
 
 ### Upon theory exam results expiration
 
-* When 180 days have passed after a successful theory exam and the pilot still hasn't taken his
+* When 60 days have passed after a successful theory exam and the pilot still hasn't taken his
   practical and hasn't been upgraded to his desired rating, ATSimtest expires the exam and the
   pilot has to re-sit it
 * A notification email is sent to the pilot, advising him that the theory exam has expired and he

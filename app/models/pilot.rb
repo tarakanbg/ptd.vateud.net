@@ -6,7 +6,7 @@ class Pilot < ActiveRecord::Base
                   :slug, :examination_feedback, :token_reissued, :token_reissued_date, :ready_for_practical,
                   :theory_failed, :theory_failed_date, :practical_failed, :practical_failed_date,
                   :contacted_by_email, :theory_expired
-  
+
   extend FriendlyId
   friendly_id :url, use: :slugged
 
@@ -87,7 +87,7 @@ class Pilot < ActiveRecord::Base
   end
 
   def self.pilots_by_day(start)
-    pilots = unscoped.where(created_at: start.beginning_of_day..Time.zone.now)    
+    pilots = unscoped.where(created_at: start.beginning_of_day..Time.zone.now)
     pilots = pilots.group('date(created_at)')
     pilots = pilots.order('date(created_at)')
     pilots = pilots.select('date(created_at) as created_at, count(*) as count')
@@ -111,7 +111,7 @@ class Pilot < ActiveRecord::Base
   end
 
   def self.pilots_by_month(start)
-    pilots = unscoped.where(created_at: start.beginning_of_month..Time.zone.now)    
+    pilots = unscoped.where(created_at: start.beginning_of_month..Time.zone.now)
     pilots = pilots.group('date(created_at)')
     pilots = pilots.order('date(created_at)')
     pilots = pilots.select('date(created_at) as created_at, count(*) as count')
@@ -123,7 +123,7 @@ class Pilot < ActiveRecord::Base
 
   def self.process_expired_theory
     pilots = unscoped.where(upgraded: false)
-    pilots = pilots.where("theory_passed_date < ?", 180.days.ago)
+    pilots = pilots.where("theory_passed_date < ?", 60.days.ago)
     if pilots.count > 0
       for pilot in pilots
         pilot.theory_expired = true
@@ -157,15 +157,15 @@ class Pilot < ActiveRecord::Base
   # end
 
   def saving_callbacks
-    send_instructor_emails 
+    send_instructor_emails
     send_token_emails
     send_theory_emails
     send_theory_expired_emails
     send_practical_emails
     send_upgraded_emails
     send_examination_feedback
-    send_ready_for_practical_emails  
-    send_failure_emails  
+    send_ready_for_practical_emails
+    send_failure_emails
   end
 
   def before_saving_callbacks
@@ -178,22 +178,22 @@ class Pilot < ActiveRecord::Base
     if self.instructor_id_changed? && self.instructor
       PtdMailer.delay.instructor_mail_pilot(self)
       PtdMailer.delay.instructor_mail_instructor(self)
-    end    
+    end
   end
 
   def send_token_emails
     if self.token_issued_changed? && self.token_issued?
       PtdMailer.delay.token_mail_pilot(self)
-    end  
+    end
     if self.token_reissued_changed? && self.token_reissued?
       PtdMailer.delay.token_mail_pilot(self)
-    end   
+    end
   end
 
   # def token_issued_changes
   #   if (self.token_issued_changed? && self.token_issued?) or (self.token_reissued_changed? && self.token_reissued?)
   #     self.theory_expired = false
-  #   end      
+  #   end
   # end
 
   def send_theory_emails
@@ -212,11 +212,11 @@ class Pilot < ActiveRecord::Base
   end
 
   def send_failure_emails
-    if self.theory_failed_changed? && self.theory_failed?      
+    if self.theory_failed_changed? && self.theory_failed?
       PtdMailer.delay.theory_fail_mail_instructors(self)
       PtdMailer.delay.theory_fail_mail_pilot(self)
     end
-    if self.practical_failed_changed? && self.practical_failed?      
+    if self.practical_failed_changed? && self.practical_failed?
       PtdMailer.delay.practical_fail_mail_instructors(self)
       PtdMailer.delay.practical_fail_mail_pilot(self)
     end
@@ -225,31 +225,31 @@ class Pilot < ActiveRecord::Base
   def send_upgraded_emails
     if self.upgraded_changed? && self.upgraded?
       PtdMailer.delay.upgraded_mail_pilot(self)
-    end 
+    end
   end
 
   def send_ready_for_practical_emails
     if self.ready_for_practical_changed? && self.ready_for_practical?
       PtdMailer.delay.ready_for_practical_mail_examiners(self)
       PtdMailer.delay.ready_for_practical_mail_pilot(self)
-    end 
+    end
   end
 
   def send_theory_expired_emails
-    if self.theory_expired_changed? && self.theory_expired?      
+    if self.theory_expired_changed? && self.theory_expired?
       PtdMailer.delay.theory_expired_mail_admins(self)
       PtdMailer.delay.theory_expired_mail_pilot(self)
-    end 
+    end
   end
 
   def theory_expired_changes
-    if self.theory_expired_changed? && self.theory_expired?     
+    if self.theory_expired_changed? && self.theory_expired?
       self.ready_for_practical = false
       self.token_reissued = false
       self.token_reissued_date = nil
       self.theory_passed = false
-      self.theory_score = nil     
-    end 
+      self.theory_score = nil
+    end
   end
 
   def send_examination_feedback
@@ -267,28 +267,28 @@ class Pilot < ActiveRecord::Base
       self.theory_expired = false
     elsif self.token_issued_changed?
       self.token_issued_date = nil
-    end  
+    end
     if self.token_reissued_changed? && self.token_reissued?
       self.token_reissued_date = Time.now
       self.theory_expired = false
     elsif self.token_reissued_changed?
       self.token_reissued_date = nil
-    end 
+    end
     if self.theory_passed_changed? && self.theory_passed?
       self.theory_passed_date = Time.now
     elsif self.theory_passed_changed?
       self.theory_passed_date = nil
-    end  
+    end
     if self.practical_passed_changed? && self.practical_passed?
       self.practical_passed_date = Time.now
     elsif self.practical_passed_changed?
       self.practical_passed_date = nil
-    end  
+    end
     if self.theory_failed_changed? && self.theory_failed?
       self.theory_failed_date = Time.now
     elsif self.theory_failed_changed?
       self.theory_failed_date = nil
-    end 
+    end
     if self.practical_failed_changed? && self.practical_failed?
       self.practical_failed_date = Time.now
     elsif self.practical_failed_changed?
@@ -298,14 +298,14 @@ class Pilot < ActiveRecord::Base
       self.upgraded_date = Time.now
     elsif self.upgraded_changed?
       self.upgraded_date = nil
-    end 
+    end
     if self.instructor_id_changed? && self.instructor
       self.instructor_assigned_date = Time.now
-    end 
+    end
   end
 
-  rails_admin do 
-    navigation_label 'Operations records'   
+  rails_admin do
+    navigation_label 'Operations records'
 
     list do
       field :id do
@@ -313,7 +313,7 @@ class Pilot < ActiveRecord::Base
       end
       field :name do
         column_width 170
-        pretty_value do          
+        pretty_value do
           id = bindings[:object].id
           name = bindings[:object].name
           bindings[:view].link_to "#{name}", bindings[:view].rails_admin.show_path('pilot', id)
@@ -323,8 +323,8 @@ class Pilot < ActiveRecord::Base
         column_width 190
       end
       field :rating do
-        column_width 60        
-        label "Desired Rating" 
+        column_width 60
+        label "Desired Rating"
       end
       field :vatsimid do
         label "Vatsim ID"
@@ -352,28 +352,28 @@ class Pilot < ActiveRecord::Base
       field :practical_passed_date
       field :practical_score
       field :upgraded
-      field :upgraded_date      
+      field :upgraded_date
     end
 
-    edit do      
-      field :name 
+    edit do
+      field :name
       field :email
       field :rating do
-        label "Desired Rating"       
+        label "Desired Rating"
       end
       field :vatsimid do
-        label "Vatsim ID"       
+        label "Vatsim ID"
       end
       field :division
       field :vacc
       field :atc_rating
-      field :instructor      
+      field :instructor
       field :trainings
       field :contacted_by_email
-      field :token_issued 
+      field :token_issued
       field :theory_failed
-      field :token_reissued      
-      field :theory_passed      
+      field :token_reissued
+      field :theory_passed
       field :theory_score
       field :ready_for_practical
       field :theory_expired
@@ -395,24 +395,24 @@ class Pilot < ActiveRecord::Base
       #       end
       #     }
       #   end
-      # end   
-      field :practical_failed 
-      field :practical_passed      
+      # end
+      field :practical_failed
+      field :practical_passed
       field :practical_score
       field :examination_feedback
-      field :upgraded      
+      field :upgraded
       field :pilot_files
       field :notes
     end
 
-    show do      
-      field :name 
+    show do
+      field :name
       field :email
       field :rating do
-        label "Desired Rating"       
+        label "Desired Rating"
       end
       field :vatsimid do
-        label "Vatsim ID"       
+        label "Vatsim ID"
       end
       field :division
       field :vacc
@@ -444,6 +444,6 @@ class Pilot < ActiveRecord::Base
       field :pilot_files
       field :notes
     end
-       
+
   end
 end
