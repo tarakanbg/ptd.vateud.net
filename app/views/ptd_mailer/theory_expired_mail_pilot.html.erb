@@ -5,18 +5,18 @@
   </head>
   <body>
     <p><em>This is an automated email message, please do not reply!</em></p>
-    
+
     <h1>Dear <%= @pilot.name %></h1>
     <p>
-      It's now been 180 days since you took your <%= @pilot.rating.name %> rating theory test
+      It's now been 60 days since you took your <%= @pilot.rating.name %> rating theory test
       within VATEUD PTD and its validity has expired. You need to re-sit the theoretical exam
       before you proceed to the practical one.<br/>
     </p>
-    
+
     <p>
       You can request a theory exam token re-issue from your personal EUD PTD profile
       at the following address:
-      <a href="http://ptd.vateud.net/pilots/<%=@pilot.slug %>">http://ptd.vateud.net/pilots/<%=@pilot.slug %></a>      
+      <a href="http://ptd.vateud.net/pilots/<%=@pilot.slug %>">http://ptd.vateud.net/pilots/<%=@pilot.slug %></a>
     </p>
     <p>
       The re-issue request will be processed by our staff and then you can proceed further with your training.
