@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140213212059) do
+ActiveRecord::Schema.define(:version => 20140327111528) do
 
   create_table "atc_ratings", :force => true do |t|
     t.string   "name"
@@ -112,6 +112,13 @@ ActiveRecord::Schema.define(:version => 20140213212059) do
   end
 
   add_index "newbies", ["slug"], :name => "index_newbies_on_slug", :unique => true
+
+  create_table "options", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "pilot_files", :force => true do |t|
     t.integer  "user_id"
