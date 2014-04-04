@@ -3,7 +3,7 @@
     .section_header
       %h3.center Pilot record for #{@pilot.name}
     .row
-      - if notice 
+      - if notice
         %p#notice= notice
 
       #enroll
@@ -14,37 +14,35 @@
         %p
           %label.string.required.control-label VATSIM ID:
           %span.record-details #{@pilot.vatsimid}
-        
-        %p
-          %label.string.required.control-label Email:
-          %span.record-details #{@pilot.email}
+
+
 
         %p
           %label.string.required.control-label Desired Rating:
           %span.record-details #{@pilot.rating.name}
-          
+
         %p
           %label.string.required.control-label Division:
           %span.record-details #{@pilot.division.name}
-          
+
         - unless @pilot.vacc.blank?
           %p
             %label.string.required.control-label VACC:
             %span.record-details #{@pilot.vacc}
-          
+
         - if @pilot.atc_rating
           %p
             %label.string.required.control-label ATC rating:
-            %span.record-details #{@pilot.atc_rating.name}  
+            %span.record-details #{@pilot.atc_rating.name}
 
         %p
           %label.string.required.control-label Date enrolled:
-          %span.record-details #{@pilot.created_at}   
+          %span.record-details #{@pilot.created_at}
 
         - if @pilot.instructor
           %p
             %label.string.required.control-label Instructor Assigned:
-            %span.record-details #{@pilot.instructor_assigned_date} 
+            %span.record-details #{@pilot.instructor_assigned_date}
           %p
             %label.string.required.control-label Instructor:
             %span.record-details #{@pilot.instructor.name}, ID #{@pilot.instructor.vatsimid}
@@ -54,32 +52,32 @@
             %p
               %label.string.required.control-label Training:
               %span.record-details #{training.date}, #{training.departure_airport} - #{training.destination_airport}, #{training.notes}
-            
+
 
         - if @pilot.token_issued?
           %p
             %label.string.required.control-label Token issued:
-            %span.record-details #{@pilot.token_issued_date} 
+            %span.record-details #{@pilot.token_issued_date}
 
         - if @pilot.theory_failed?
           %p
             %label.string.required.control-label Theory failed:
-            %span.record-details #{@pilot.theory_failed_date}      
+            %span.record-details #{@pilot.theory_failed_date}
 
         - if @pilot.token_reissued?
           %p
             %label.string.required.control-label Token re-issued:
-            %span.record-details #{@pilot.token_reissued_date}                  
+            %span.record-details #{@pilot.token_reissued_date}
 
         - if @pilot.theory_passed?
           %p
             %label.string.required.control-label Theory passed:
-            %span.record-details #{@pilot.theory_passed_date} 
+            %span.record-details #{@pilot.theory_passed_date}
 
         - unless @pilot.theory_score.blank?
           %p
             %label.string.required.control-label Theory Score:
-            %span.record-details #{@pilot.theory_score}  
+            %span.record-details #{@pilot.theory_score}
 
         - if @pilot.examinations.count > 0
           %p
@@ -92,27 +90,27 @@
         - if @pilot.practical_failed?
           %p
             %label.string.required.control-label Practical failed:
-            %span.record-details #{@pilot.practical_failed_date} 
+            %span.record-details #{@pilot.practical_failed_date}
 
         - if @pilot.practical_passed?
           %p
             %label.string.required.control-label Practical passed:
-            %span.record-details #{@pilot.practical_passed_date}  
+            %span.record-details #{@pilot.practical_passed_date}
 
         - unless @pilot.practical_score.blank?
           %p
             %label.string.required.control-label Practical Score:
-            %span.record-details #{@pilot.practical_score} 
+            %span.record-details #{@pilot.practical_score}
 
         - unless @pilot.examination_feedback.blank?
           %p
             %label.string.required.control-label Examination Feedback:
-            %span.record-details #{@pilot.examination_feedback}  
+            %span.record-details #{@pilot.examination_feedback}
 
         - if @pilot.upgraded?
           %p
             %label.string.required.control-label Upgraded:
-            %span.record-details #{@pilot.upgraded_date} 
+            %span.record-details #{@pilot.upgraded_date}
 
         -if @pilot.theory_expired?
           %p
@@ -120,12 +118,12 @@
             <br />
             = link_to raw('<i class="icon-forward icon-white"></i> Request Theory Exam Token Reissue'), {:action => :request_reissue, :id => @pilot.id}, :method => :put, :title => "Request Token Reissue", :class => "btn btn-info"
 
-    
+
     = upcoming_examinations
     = upcoming_trainings
     .row
       %p.center
         = link_to "Read the PTD documentation", "http://vateud.net/training-department/pilot-td-aim"
-        <br />    
-        = link_to "Visit the pilot's library", "/library"   
-      = render "spam_notice"   
+        <br />
+        = link_to "Visit the pilot's library", "/library"
+      = render "spam_notice"
