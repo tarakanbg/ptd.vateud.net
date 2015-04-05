@@ -3,7 +3,7 @@
   
   .inputs
 
-  = f.association :rating, :label => 'Desired Rating', :include_blank => "Please select...", :input_html => { :class => 'span3' }
+  = f.association :rating, :collection => Rating.where("id != 3").order('priority ASC'), :label => 'Desired Rating', :include_blank => "Please select...", :input_html => {:class => 'span3'}
   = f.input :vatsimid, :label => 'VATSIM ID', :input_html => { :class => 'span3' }
   <div style="position: absolute; left: -2000px;"><input type="text" name="website" value="" /></div>
   
