@@ -138,7 +138,8 @@ class Pilot < ActiveRecord::Base
 
   def send_welcome_mail
     PtdMailer.delay.welcome_mail_pilot(self)
-    PtdMailer.delay.welcome_mail_users(self)
+    # Admin emails temporarily disabled due to inactivity
+    #PtdMailer.delay.welcome_mail_users(self)
     # Pilot.additional_emails_to_noneud_members(self)
     # Pilot.additional_email_to_eud_pilots_without_vacc(self)
     foreign_divisions = ["VATUSA", "VATWA", "VATOCE", "VATSUR", "VATUK"]
